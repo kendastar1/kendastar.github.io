@@ -1,0 +1,719 @@
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenidos</title>
+<style>
+:root {
+  --primary-green: #4CAF50;
+  --dark-green: #2E7D32;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav {
+  background: var(--dark-green);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo {
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: var(--white);
+  transition: all 0.3s ease;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.close-menu {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.close-menu::before,
+.close-menu::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: var(--white);
+  top: 50%;
+  left: 0;
+}
+
+.close-menu::before {
+  transform: rotate(45deg);
+}
+
+.close-menu::after {
+  transform: rotate(-45deg);
+}
+
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-links a:hover {
+  color: #90EE90;
+}
+
+.hero {
+
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  color: var(--white);
+  background-image: url(imagenes/img.jpg);
+}
+.hero::before {
+  content: ''; /* Necesario para mostrar el pseudo-elemento */
+  position: absolute; /* Posiciona el pseudo-elemento sobre el contenedor */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
+ 
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--primary-green);
+  animation-delay: 0.3s;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+  animation-delay: 0.6s;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.9s;
+}
+
+.btn {
+  padding: 1.2rem 2.5rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.btn-primary {
+  background: var(--primary-green);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--dark-green);
+  transform: translateY(-3px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+
+.btn-secondary:hover {
+  background: var(--white);
+  color: var(--dark-green);
+  transform: translateY(-3px);
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 2.5rem;
+  background: var(--white);
+  margin-top: -5rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.15);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  opacity: 0;
+  animation: slideInFromLeft 1s ease forwards;
+  animation-delay: 1.2s;
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  width: 200px;
+  transition: all 0.3s ease;
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.feature-title {
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.feature-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.feature-card:hover {
+  background: var(--primary-green);
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+}
+
+.feature-card:hover .feature-icon {
+  fill: var(--white);
+  transform: scale(1.2);
+}
+
+.feature-card:hover .feature-title,
+.feature-card:hover .feature-subtitle {
+  color: var(--white);
+}
+
+.feature-card:hover path {
+  fill: var(--white);
+}
+
+.about-section {
+  padding: 5rem 2rem;
+}
+
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-image {
+  flex: 1;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.about-text h2 {
+  color: var(--primary-green);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+.about-text h3 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.6s;
+}
+
+.about-text p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.9s;
+}
+
+.about-stats {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 1.2s;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.about-button {
+  padding: 1rem 2rem;
+  background: var(--primary-green);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 1.5s;
+}
+
+.about-image {
+  opacity: 0;
+  animation: slideInFromRight 1s ease forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 250px;
+    background: var(--dark-green);
+    flex-direction: column;
+    padding: 80px 20px;
+    transition: right 0.3s ease;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .close-menu {
+    display: block;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .hero {
+    padding: 1rem;
+    height: 100vh;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+  }
+
+  .about-section {
+    padding: 3rem 1rem;
+  }
+  
+  .about-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .about-text {
+    text-align: center;
+    padding: 0;
+  }
+  
+  .about-text h2 {
+    font-size: 1.3rem;
+  }
+  
+  .about-text h3 {
+    font-size: 2rem;
+  }
+  
+  .about-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  
+  .about-button {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    min-height: 50px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-image {
+    width: 100%;
+  }
+  
+  .about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.8rem;
+    padding-top: 80px;
+  }
+  
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+  
+  .about-text h3 {
+    font-size: 1.8rem;
+  }
+  
+  .nav-links {
+    width: 100%;
+  }
+
+  .btn {
+    padding: 1.2rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+</style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Simulador</div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-links">
+      <div class="close-menu"></div>
+      <a href="#">Inicio</a>
+      <a href="#">Otro1</a>
+      <a href="#">Otro3</a>
+      <a href="#">Otro4</a>
+      
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Cohete de agua a presion</h1>
+    <h2>BIENVENIDOS</h2>
+    <p>Podrías explorar todo acerca de esta simulación</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary">Ver más</button>
+      <button class="btn btn-secondary">Simulación</button>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
+        <!-- Main rocket body -->
+        <path d="M12 2C11 3 8.5 5.5 8.5 9.5C8.5 11.8 9.44 13.77 10.5 15C11.2 13.3 12.8 12 12 12C11.2 12 12.8 13.3 13.5 15C14.56 13.77 15.5 11.8 15.5 9.5C15.5 5.5 13 3 12 2Z"/>
+        <!-- Rocket window -->
+        <circle cx="12" cy="8" r="1.5"/>
+        <!-- Side boosters -->
+        <path d="M15.5 10L17 14L16 15.5L12 14L8 15.5L7 14L8.5 10"/>
+        <!-- Flames -->
+        <path d="M10.5 15.5L12 19L13.5 15.5" fill="var(--primary-green)">
+          <animate attributeName="d" 
+                   dur="0.5s"
+                   repeatCount="indefinite"
+                   values="M10.5 15.5L12 19L13.5 15.5;
+                           M10.5 15.5L12 20L13.5 15.5;
+                           M10.5 15.5L12 19L13.5 15.5"/>
+        </path>
+      </svg>
+      <h3 class="feature-title">Como funciona</h3>
+      <p class="feature-subtitle">El funcionamiento</p>
+    </div>
+
+    <div class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
+        <path d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"/>
+      </svg>
+      <h3 class="feature-title">Pasos para la construccion</h3>
+      <p class="feature-subtitle">podras ver como se contruye</p>
+    </div>
+
+    <div class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
+        <path d="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z"/>
+      </svg>
+      <h3 class="feature-title">Formula</h3>
+      <p class="feature-subtitle">Podras ver la formula</p>
+    </div>
+
+    <div class="feature-card">
+      <a href="simulador.html" style="text-decoration: none;">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
+        <path d="M3,12H7A5,5 0 0,1 12,7A5,5 0 0,1 17,12H21A1,1 0 0,1 22,13A1,1 0 0,1 21,14H3A1,1 0 0,1 2,13A1,1 0 0,1 3,12M15,12A3,3 0 0,0 12,9A3,3 0 0,0 9,12H15M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M3.34,7L7.5,6.65C6.9,7.16 6.36,7.78 5.94,8.5C5.5,9.24 5.25,10 5.11,10.79L3.34,7M20.65,7L18.88,10.79C18.74,10 18.47,9.23 18.05,8.5C17.63,7.78 17.1,7.15 16.5,6.64L20.65,7M12.71,20.71L15.82,17.6C16.21,17.21 16.21,16.57 15.82,16.18C15.43,15.79 14.8,15.79 14.41,16.18L12,18.59L9.59,16.18C9.2,15.79 8.57,15.79 8.18,16.18C7.79,16.57 7.79,17.21 8.18,17.6L11.29,20.71C11.68,21.1 12.32,21.1 12.71,20.71Z"/>
+      </svg>
+      <h3 class="feature-title" >Simulador</h3>
+      <p class="feature-subtitle">Podras ver el simulador</p>
+      </a>
+    </div>
+
+    <div class="feature-card">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
+        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M15,16H9V14H15V16M17,12H7V10H17V12M13,8V3.5L17.5,8H13Z"/>
+      </svg>
+      <h3 class="feature-title">Integrantes</h3>
+      <p class="feature-subtitle">jovenes</p>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>Concepto Básico</h2>
+        <h3>Cohete Propulsado por Aire y Agua
+</h3>
+        <p>Un cohete propulsado por aire y agua utiliza la presión del aire comprimido para expulsar agua y generar impulso. Al liberar el tapón, el aire empuja el agua hacia abajo, lo que eleva el cohete hacia arriba.</p>
+        <div class="about-stats">
+        
+         
+        </div>
+        <button class="about-button">Ver más</button>
+      </div>
+      <div class="about-image">
+        <img src="imagenes/img2.jpg" alt="Nature conservation image" width="500" height="400">
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const closeMenu = document.querySelector('.close-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.style.background = 'rgba(46, 125, 50, 0.95)';
+        nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+      } else {
+        nav.style.background = 'var(--dark-green)';
+        nav.style.boxShadow = 'none';
+      }
+    });
+
+    const observerOptions = {
+      threshold: 0.2
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, observerOptions);
+
+    const animatedElements = document.querySelectorAll('.about-text h2, .about-text h3, .about-text p, .about-stats, .about-button, .about-image');
+
+    animatedElements.forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  </script>
+</body></html>
