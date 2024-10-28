@@ -1,0 +1,758 @@
+<html><head><base href="/" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Cohete de Agua y aire</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(180deg, #87CEEB 0%, #4682B4 100%);
+    overflow: hidden;
+    cursor: default;
+  }
+  .container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .simulation-area {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    background: repeating-linear-gradient(
+      45deg,
+      #2E7D32,
+      #2E7D32 10px,
+      #1B5E20 10px,
+      #1B5E20 20px
+    );
+    z-index: 5;
+  }
+  
+  /* Plano cartesiano */
+  .angle-reference {
+    position: absolute;
+    bottom: 160px;
+    left: 110px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+  }
+  .angle-line {
+    position: absolute;
+    bottom: 160px;
+    left: 110px;
+    width: 100px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    transform-origin: left center;
+  }
+  .angle-0 {
+    transform: rotate(0deg);    
+  }
+  .angle-90 {
+    transform: rotate(-90deg);  
+  }
+  .angle-label {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  .label-0 {
+    bottom: 270px;  
+    left: 105px;
+  }
+  .label-90 {
+    bottom: 160px;  
+    left: 220px;    
+  }
+  
+  .grass {
+    position: absolute;
+    bottom: 100px;
+    width: 100%;
+    height: 20px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/svg/2000" viewBox="0 0 10 10"><path d="M0,10 L2,5 L4,10 L6,3 L8,10 L10,0 L10,10 Z" fill="%234CAF50"/></svg>') repeat-x;
+    z-index: 6; 
+  }
+  .control-panel {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  .slider-container {
+    margin: 15px 0;
+  }
+  .slider-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #ddd;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #2196F3;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .launch-platform {
+    position: absolute;
+    bottom: 120px;
+    left: 100px;
+    width: 60px;
+    height: 40px;
+    background: #666;
+  }
+  .rocket {
+    position: absolute;
+    bottom: 160px;
+    left: 110px;
+    transform-origin: bottom center;
+    transition: transform 0.3s ease;
+    cursor: move;
+    will-change: transform; 
+    z-index: 15; 
+  }
+  .rocket.adjusting {
+    cursor: grabbing;
+  }
+  .trajectory {
+    position: absolute;
+    pointer-events: none;
+    z-index: 15; 
+  }
+  .current-angle-display {
+    position: absolute;
+    bottom: 200px;
+    left: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    pointer-events: none;
+  }
+
+  /* Updated distance-markers styling */
+  .distance-markers {
+    position: absolute;
+    bottom: 120px; 
+    left: 0;
+    width: 100%;
+    height: 60px; 
+    pointer-events: none;
+    z-index: 10; 
+  }
+  .distance-mark {
+    position: absolute;
+    bottom: -20px; 
+    transform: translateX(-50%);
+    text-align: center;
+    color: white; 
+    font-weight: bold; 
+    font-size: 14px; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
+    z-index: 11; 
+  }
+  
+  /* Add axis line */
+  .x-axis {
+    position: absolute;
+    bottom: 0; 
+    left: 110px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.9);
+    width: calc(100% - 120px);
+    z-index: 11; 
+  }
+
+  .axis-label {
+    position: absolute;
+    bottom: -35px; 
+    right: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 11; 
+  }
+
+  /* Add to existing CSS */
+  .cloud {
+    position: absolute;
+    opacity: 0.8;
+    animation: floatCloud linear infinite;
+  }
+
+  @keyframes floatCloud {
+    from { transform: translateX(-200px); }
+    to { transform: translateX(100vw); }
+  }
+
+  /* Add this to the CSS section */
+  @keyframes explode {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(2);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+
+  .explosion {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* Add to existing CSS */
+  #resetButton {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+    outline: none;
+  }
+
+  #resetButton:hover {
+    background: #d32f2f;
+  }
+
+  .distance-panel {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 10px;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .distance-panel h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+  }
+
+  .distance-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2196F3;
+    min-width: 120px; 
+  }
+
+  button {
+    outline: none;
+  }
+
+  #launchButton {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+    outline: none;
+  }
+
+  /* Add to existing CSS */
+  .air-pump {
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    bottom: 160px; /* Changed from 110px to 160px to place it in the middle */
+    left: 50px;
+  }
+
+  @keyframes pumpHandle {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+    100% { transform: translateY(0); }
+  }
+
+  @keyframes airFlow {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 20; }
+  }
+
+  .pumping .air-hose {
+    stroke-dasharray: 4,4;
+    animation: airFlow 0.5s linear infinite;
+  }
+
+  .pumping rect[y="0"] {
+    animation: pumpHandle 0.5s linear infinite;
+  }
+  
+  /* Add this to the CSS section */
+  .title {
+    text-align: center;
+    color: white;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="distance-panel">
+    <h3>Distancia Recorrida</h3>
+    <div class="distance-value">0 metros</div>
+  </div>
+  <div class="simulation-area">
+    <h1 class="title">Simulador de Cohete de Agua</h1>
+    <svg class="cloud" width="100" height="40" style="top: 15%; animation-duration: 30s;">
+      <path fill="white" d="M10,30 A10,10 0 0,1 20,20 A15,15 0 0,1 50,15 A10,10 0 0,1 65,25 A8,8 0 0,1 75,20 A10,10 0 0,1 90,30 Z"/>
+    </svg>
+
+    <svg class="cloud" width="120" height="48" style="top: 35%; animation-duration: 45s;">
+      <path fill="white" d="M12,36 A12,12 0 0,1 24,24 A18,18 0 0,1 60,18 A12,12 0 0,1 78,30 A10,10 0 0,1 90,24 A12,12 0 0,1 108,36 Z"/>
+    </svg>
+
+    <svg class="cloud" width="80" height="32" style="top: 8%; animation-duration: 35s;">
+      <path fill="white" d="M8,24 A8,8 0 0,1 16,16 A12,12 0 0,1 40,12 A8,8 0 0,1 52,20 A6,6 0 0,1 60,16 A8,8 0 0,1 72,24 Z"/>
+    </svg>
+    
+    <svg class="trajectory" width="100%" height="100%">
+      <path id="rocketPath" stroke="#FF0000" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+    </svg>
+
+    <svg class="trajectory" width="100%" height="100%" style="position: absolute; pointer-events: none;">
+      <path id="rocketTrail" stroke="#FF0000" stroke-width="3" fill="none" opacity="0.6"/>
+    </svg>
+    
+    <!-- Update the inline style of the air pump SVG -->
+    <svg class="air-pump" width="60" height="140" viewBox="0 0 60 140" style="position: absolute; bottom: 160px; left: 50px; z-index: 10;">
+      <!-- Pump body -->
+      <rect x="10" y="40" width="40" height="100" fill="#666" rx="5"/>
+      <!-- Pump handle -->
+      <rect x="15" y="20" width="30" height="10" fill="#444" rx="2"/>
+      <rect x="25" y="0" width="10" height="20" fill="#444"/>
+      <!-- Pump gauge -->
+      <circle cx="30" cy="60" r="12" fill="#333"/>
+      <circle cx="30" cy="60" r="10" fill="#fff"/>
+      <!-- Air hose -->
+      <path d="M50,80 Q70,80 75,100 T80,120" stroke="#333" stroke-width="4" fill="none" class="air-hose"/>
+    </svg>
+    
+    <!-- Plano cartesiano y referencias de ángulos -->
+    <div class="angle-reference"></div>
+    <div class="angle-line angle-0"></div>
+    <div class="angle-line angle-90"></div>
+    <div class="angle-label label-0">90°</div>
+    <div class="angle-label label-90">0°</div>
+    
+    <!-- Display del ángulo actual -->
+    <div class="current-angle-display">45°</div>
+    
+    <div class="launch-platform"></div>
+
+    <div class="distance-markers">
+      <!-- Markers will be added by JavaScript -->
+      <div class="x-axis"></div>
+      <div class="axis-label">X</div>
+    </div>
+    
+    <svg class="rocket" width="40" height="120" viewBox="0 0 40 120">
+      <defs>
+        <linearGradient id="bottleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#B3E5FC;stop-opacity:0.9" />
+          <stop offset="100%" style="stop-color:#4FC3F7;stop-opacity:1" />
+        </linearGradient>
+        <filter id="bottleShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+          <feOffset dx="1" dy="1"/>
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="0.3"/>
+          </feComponentTransfer>
+          <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      <!-- Main bottle body -->
+      <path d="M10,120 
+               L10,45 
+               C10,35 30,35 30,45 
+               L30,120 
+               Z" 
+            fill="url(#bottleGradient)" 
+            filter="url(#bottleShadow)"/>
+      
+      <!-- Bottle neck -->
+      <path d="M15,45 
+               L15,15 
+               C15,10 25,10 25,15 
+               L25,45" 
+            fill="#81D4FA" 
+            filter="url(#bottleShadow)"/>
+      
+      <!-- Water level (keep existing id for functionality) -->
+      <rect id="waterLevel" 
+            x="10" 
+            y="80" 
+            width="20" 
+            height="40" 
+            fill="#2196F3" 
+            opacity="0.8"/>
+      
+      <!-- Bottle ridges -->
+      <path d="M10,60 L30,60" stroke="#81D4FA" stroke-width="1"/>
+      <path d="M10,80 L30,80" stroke="#81D4FA" stroke-width="1"/>
+      <path d="M10,100 L30,100" stroke="#81D4FA" stroke-width="1"/>
+      
+      <!-- Bottle cap/nose cone -->
+      <path d="M15,15 L20,5 L25,15" 
+            fill="#FF5252"/>
+      
+      <!-- Fins -->
+      <path d="M8,120 L10,100 L10,120 Z" fill="#FF5252"/>
+      <path d="M32,120 L30,100 L30,120 Z" fill="#FF5252"/>
+    </svg>
+
+    <svg class="explosion" style="display: none;" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="orange" />
+      <circle cx="50" cy="50" r="30" fill="yellow" />
+    </svg>
+    
+    <div class="ground"></div>
+    <div class="grass"></div>
+  </div>
+  
+  <div class="control-panel">
+    <h3>Control del Cohete de Agua</h3>
+    <p style="color: #666;">📌 Haz clic y arrastra la botella para ajustar el ángulo</p>
+    
+    <div class="slider-container">
+      <label>Presión del Aire: <span id="pressureValue">200</span> kPa</label>
+      <input type="range" min="100" max="500" step="10" value="200" id="pressureSlider">
+    </div>
+    
+    <div class="slider-container">
+      <label>Cantidad de Agua: <span id="waterValue">50</span>%</label>
+      <input type="range" min="0" max="100" value="50" id="waterSlider">
+    </div>
+    
+    <button id="launchButton">
+      Lanzar Cohete 
+    </button>
+    <button id="resetButton">
+      Reiniciar 
+    </button>
+  </div>
+</div>
+
+<script>
+const rocket = document.querySelector('.rocket');
+const waterLevel = document.getElementById('waterLevel');
+const pressureSlider = document.getElementById('pressureSlider');
+const waterSlider = document.getElementById('waterSlider');
+const launchButton = document.getElementById('launchButton');
+const resetButton = document.getElementById('resetButton');
+const path = document.getElementById('rocketPath');
+const rocketTrail = document.getElementById('rocketTrail');
+const currentAngleDisplay = document.querySelector('.current-angle-display');
+const simulationArea = document.querySelector('.simulation-area');
+const distanceDisplay = document.querySelector('.distance-value');
+const airPump = document.querySelector('.air-pump');
+
+let isAdjusting = false;
+let isLaunched = false;
+let currentAngle = 45;
+let animationFrame;
+let trailPoints = [];
+
+function createDistanceMarkers() {
+  const distanceMarkers = document.querySelector('.distance-markers');
+  distanceMarkers.innerHTML = ''; 
+  
+  const xAxis = document.createElement('div');
+  xAxis.className = 'x-axis';
+  distanceMarkers.appendChild(xAxis);
+
+  const xLabel = document.createElement('div');
+  xLabel.className = 'axis-label';
+  xLabel.textContent = 'X';
+  distanceMarkers.appendChild(xLabel);
+  
+  const startX = 110; 
+  const containerWidth = simulationArea.clientWidth;
+  
+  for(let x = startX; x < containerWidth - 100; x += 150) {
+    const marker = document.createElement('div');
+    marker.className = 'distance-mark';
+    marker.style.left = `${x}px`;
+    
+    const distance = x - startX;
+    const meters = Math.round((distance / 150) * 10) / 10;
+    
+    const span = document.createElement('span');
+    span.textContent = `${meters}m`; 
+    marker.appendChild(span);
+    
+    distanceMarkers.appendChild(marker);
+  }
+}
+
+function calculateAngle(event) {
+  const rocketRect = rocket.getBoundingClientRect();
+  const rocketBottomCenter = {
+    x: rocketRect.left + rocketRect.width / 2,
+    y: rocketRect.bottom
+  };
+  
+  const deltaX = event.clientX - rocketBottomCenter.x;
+  const deltaY = rocketBottomCenter.y - event.clientY;
+  let angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+  
+  angle = Math.max(0, Math.min(90, angle));
+  return 90 - angle;  
+}
+
+function updateRocketAngle(angle) {
+  currentAngle = angle;
+  rocket.style.transform = `rotate(${angle}deg)`; 
+  currentAngleDisplay.textContent = `${Math.round(90 - angle)}°`; 
+  updateTrajectoryPreview();
+}
+
+function updateWaterLevel(percentage) {
+  const height = 40 * (percentage / 100);
+  waterLevel.setAttribute('height', height);
+  waterLevel.setAttribute('y', 120 - height);
+  document.getElementById('waterValue').textContent = percentage;
+  updateTrajectoryPreview();
+}
+
+function updatePressure(pressure) {
+  document.getElementById('pressureValue').textContent = pressure;
+  updateTrajectoryPreview();
+}
+
+function calculateTrajectoryPoint(time, angle, pressure, waterAmount) {
+  const gravity = 9.81;
+  let initialVelocity = Math.sqrt(pressure / 100) * (0.5 + waterAmount / 200) * 70; 
+  
+  if (angle === 90 && pressure <= 1 && waterAmount <= 1) {
+    const x = 110;
+    const y = 160 + (initialVelocity * time) - (0.5 * gravity * time * time);
+    return { x, y };
+  }
+  
+  const angleRad = (90 - angle) * Math.PI / 180;
+  
+  const airResistance = 0.02;
+  const horizontalVelocity = initialVelocity * Math.cos(angleRad) * Math.exp(-airResistance * time);
+  const verticalVelocity = initialVelocity * Math.sin(angleRad) - gravity * time;
+  
+  const x = 110 + horizontalVelocity * time;
+  const y = 160 + verticalVelocity * time - (0.5 * gravity * time * time);
+  
+  return { x, y };
+}
+
+function updateTrajectoryPreview() {
+  const pressure = pressureSlider.value;
+  const water = waterSlider.value;
+  
+  const points = [];
+  let time = 0;
+  const timeStep = 0.05;
+  
+  while (time < 2.5) {
+    const point = calculateTrajectoryPoint(time, currentAngle, pressure, water);
+    if (point.y < 120) break;
+    points.push(`${point.x},${window.innerHeight - point.y}`);
+    time += timeStep;
+  }
+  
+  path.setAttribute('d', `M ${points.join(' L ')}`);
+}
+
+function animateRocket(startTime) {
+  const currentTime = (Date.now() - startTime) / 350;
+  const pressure = pressureSlider.value;
+  const water = waterSlider.value;
+  
+  const position = calculateTrajectoryPoint(currentTime, currentAngle, pressure, water);
+  const nextTime = currentTime + 0.05;
+  const nextPosition = calculateTrajectoryPoint(nextTime, currentAngle, pressure, water);
+  
+  const deltaX = nextPosition.x - position.x;
+  const deltaY = nextPosition.y - position.y;
+  const trajectoryAngle = Math.atan2(-deltaY, deltaX) * 180 / Math.PI;
+  
+  const distanceInPixels = position.x - 110; 
+  const distanceInMeters = Math.round((distanceInPixels / 150) * 10) / 10;
+  distanceDisplay.textContent = `${distanceInMeters} metros`;
+
+  trailPoints.push(`${position.x},${window.innerHeight - position.y}`);
+  rocketTrail.setAttribute('d', `M ${trailPoints.join(' L ')}`);
+
+  if (currentAngle === 90 && pressure <= 1 && water <= 1) {
+    if (position.y < 120) {
+      cancelAnimationFrame(animationFrame);
+      return;
+    }
+    rocket.style.transform = `translate(0px, ${-(position.y - 160)}px) rotate(0deg)`;
+    animationFrame = requestAnimationFrame(() => animateRocket(startTime));
+    return;
+  }
+  
+  if (position.y >= 120) {
+    const rotationAngle = trajectoryAngle + 90;
+    rocket.style.transform = `translate(${position.x - 110}px, ${-(position.y - 160)}px) rotate(${rotationAngle}deg)`;
+    animationFrame = requestAnimationFrame(() => animateRocket(startTime));
+  } else {
+    cancelAnimationFrame(animationFrame);
+  }
+}
+
+function launchRocket() {
+  if (isLaunched) return;
+  
+  const pressure = parseInt(pressureSlider.value);
+  if (pressure > 500) {
+    const explosion = document.querySelector('.explosion');
+    explosion.style.display = 'block';
+    explosion.style.left = rocket.getBoundingClientRect().left + 'px';
+    explosion.style.top = rocket.getBoundingClientRect().top + 'px';
+    explosion.style.animation = 'explode 1s forwards';
+    
+    rocket.style.display = 'none';
+    
+    setTimeout(() => {
+      explosion.style.display = 'none';
+      explosion.style.animation = '';
+      resetRocket();
+      rocket.style.display = 'block';
+    }, 1000);
+    
+    return;
+  }
+  
+  isLaunched = true;
+  trailPoints = [];
+  rocketTrail.setAttribute('d', '');
+  rocket.style.transition = 'none';
+  path.style.display = 'none';
+  const startTime = Date.now();
+  animateRocket(startTime);
+}
+
+function resetRocket() {
+  isLaunched = false;
+  trailPoints = [];
+  rocketTrail.setAttribute('d', '');
+  path.style.display = ''; 
+  rocket.style.transition = 'transform 0.3s ease';
+  rocket.style.transform = `rotate(${currentAngle}deg)`;
+  distanceDisplay.textContent = '0 metros'; 
+  updateTrajectoryPreview();
+  airPump.classList.remove('active');
+  airPump.classList.remove('pumping');
+  cancelAnimationFrame(animationFrame);
+}
+
+rocket.addEventListener('mousedown', (e) => {
+  if (!isLaunched) {
+    isAdjusting = true;
+    rocket.classList.add('adjusting');
+    updateRocketAngle(calculateAngle(e));
+  }
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (isAdjusting && !isLaunched) {
+    updateRocketAngle(calculateAngle(e));
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isAdjusting = false;
+  rocket.classList.remove('adjusting');
+});
+
+waterSlider.addEventListener('input', () => updateWaterLevel(waterSlider.value));
+pressureSlider.addEventListener('input', () => {
+  updatePressure(pressureSlider.value);
+  airPump.classList.add('active');
+  airPump.classList.add('pumping');
+  
+  clearTimeout(window.pumpTimeout);
+  window.pumpTimeout = setTimeout(() => {
+    airPump.classList.remove('pumping');
+  }, 1000);
+});
+launchButton.addEventListener('click', launchRocket);
+resetButton.addEventListener('click', resetRocket);
+
+launchButton.addEventListener('mouseover', () => {
+  launchButton.style.background = '#1976D2';
+});
+launchButton.addEventListener('mouseout', () => {
+  launchButton.style.background = '#2196F3';
+});
+
+updateRocketAngle(45);
+updateWaterLevel(50);
+updatePressure(200);
+updateTrajectoryPreview();
+createDistanceMarkers();
+
+window.addEventListener('resize', createDistanceMarkers);
+</script>
+</body></html>
