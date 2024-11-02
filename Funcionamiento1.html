@@ -1,7 +1,8 @@
-<html><head>
+<html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bienvenidos</title>
+<link rel="stylesheet" href="css/style.css">
 <style>
 :root {
   --primary-green: #4CAF50;
@@ -548,6 +549,19 @@ nav {
     transform: translateX(0);
   }
 }
+.header {
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Degradado negro con opacidad */
+        url(imagenes/img5.jpg); /* Imagen de fondo */
+    background-size: cover; /* Asegúrate de que la imagen cubra todo el contenedor */
+    background-position: top; /* Centra la imagen */
+    padding: 3rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: white;
+    animation: slideDown 1s ease-out;
+}
+
 </style>
 </head>
 <body>
@@ -567,93 +581,141 @@ nav {
       
     </div>
   </nav>
-
-  <section class="hero">
-    <h1>Cohete de agua a presion</h1>
-    <h2>BIENVENIDOS</h2>
-    <p>Podrías explorar todo acerca de esta simulación</p>
-    <div class="hero-buttons">
-      <button class="btn btn-primary">Ver más</button>
-      <button class="btn btn-secondary">Simulación</button>
-    </div>
-  </section>
-
-  <section class="features">
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <!-- Main rocket body -->
-        <path d="M12 2C11 3 8.5 5.5 8.5 9.5C8.5 11.8 9.44 13.77 10.5 15C11.2 13.3 12.8 12 12 12C11.2 12 12.8 13.3 13.5 15C14.56 13.77 15.5 11.8 15.5 9.5C15.5 5.5 13 3 12 2Z"/>
-        <!-- Rocket window -->
-        <circle cx="12" cy="8" r="1.5"/>
-        <!-- Side boosters -->
-        <path d="M15.5 10L17 14L16 15.5L12 14L8 15.5L7 14L8.5 10"/>
-        <!-- Flames -->
-        <path d="M10.5 15.5L12 19L13.5 15.5" fill="var(--primary-green)">
-          <animate attributeName="d" 
-                   dur="0.5s"
-                   repeatCount="indefinite"
-                   values="M10.5 15.5L12 19L13.5 15.5;
-                           M10.5 15.5L12 20L13.5 15.5;
-                           M10.5 15.5L12 19L13.5 15.5"/>
-        </path>
-      </svg>
-      <h3 class="feature-title">Como funciona</h3>
-      <p class="feature-subtitle">El funcionamiento</p>
+ <div class="header" style="padding-top: 150px; padding-bottom: 100px; ">
+    <h1>Funcionamiento de un Cohete de Agua</h1>
+    <p>Física y Principios de Propulsión a Presión</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <img src="imagenes/img4.jpg" width="200" height="150">
+      <h3>Preparación y llenado</h3>
+      <p style="text-align: justify;">Se llena parcialmente una botella (que sirve como el cuerpo del cohete) con agua, aproximadamente entre un tercio y la mitad de su capacidad. El resto de la botella queda lleno de aire.</p>
     </div>
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"/>
-      </svg>
-      <h3 class="feature-title">Pasos para la construccion</h3>
-      <p class="feature-subtitle">podras ver como se contruye</p>
+    <div class="service-card reveal">
+      <img src="imagenes/img5.jpg"  width="200" height="150">
+      <h3>Presurización</h3>
+      <p style="text-align: justify;">Una bomba de aire se usa para aumentar la presión dentro de la botella. El aire comprimido se acumula sobre la superficie del agua. Este aire comprimido actúa como un resorte listo para expandirse y empujar el agua hacia afuera de la botella.</p>
     </div>
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z"/>
-      </svg>
-      <h3 class="feature-title">Formula</h3>
-      <p class="feature-subtitle">Podras ver la formula</p>
+    <div class="service-card reveal">
+      <img src="imagenes/img3.jpg" width="200" height="150">
+      <h3>Lanzamiento</h3>
+      <p style="text-align: justify;">Al liberar la boquilla, el aire comprimido empuja el agua a través de la abertura inferior del cohete con fuerza. La salida rápida del agua genera una reacción que impulsa el cohete hacia arriba, en la dirección opuesta a la salida del agua.</p>
     </div>
 
-    <div class="feature-card">
-      <a href="simulador.html" style="text-decoration: none;">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M3,12H7A5,5 0 0,1 12,7A5,5 0 0,1 17,12H21A1,1 0 0,1 22,13A1,1 0 0,1 21,14H3A1,1 0 0,1 2,13A1,1 0 0,1 3,12M15,12A3,3 0 0,0 12,9A3,3 0 0,0 9,12H15M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M3.34,7L7.5,6.65C6.9,7.16 6.36,7.78 5.94,8.5C5.5,9.24 5.25,10 5.11,10.79L3.34,7M20.65,7L18.88,10.79C18.74,10 18.47,9.23 18.05,8.5C17.63,7.78 17.1,7.15 16.5,6.64L20.65,7M12.71,20.71L15.82,17.6C16.21,17.21 16.21,16.57 15.82,16.18C15.43,15.79 14.8,15.79 14.41,16.18L12,18.59L9.59,16.18C9.2,15.79 8.57,15.79 8.18,16.18C7.79,16.57 7.79,17.21 8.18,17.6L11.29,20.71C11.68,21.1 12.32,21.1 12.71,20.71Z"/>
-      </svg>
-      <h3 class="feature-title" >Simulador</h3>
-      <p class="feature-subtitle">Podras ver el simulador</p>
-      </a>
+    <div class="service-card reveal">
+      <img src="imagenes/img6.jpg" width="200" height="150">
+      <h3>Despegue y vuelo</h3>
+      <p style="text-align: justify;">El cohete se eleva en el aire impulsado por la fuerza de reacción generada al expulsar el agua. La altura y la distancia que alcanzará el cohete dependen de varios factores, como la cantidad de agua, la presión del aire en el interior, el diseño de la boquilla y el ángulo de lanzamiento.</p>
     </div>
+  </div>
 
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M15,16H9V14H15V16M17,12H7V10H17V12M13,8V3.5L17.5,8H13Z"/>
-      </svg>
-      <h3 class="feature-title">Integrantes</h3>
-      <p class="feature-subtitle">jovenes</p>
+  <div class="video-section reveal">
+    <h1 class="slide-reveal" style="color: #2e7a54">PODRAS VER UN CORTO VIDEO EXPLICATIVO</h>
+    <p class="zoom-reveal" style="color: 000000">Observa cómo puede funcionar de manera eficiente un cohete de agua a presión.</p>
+    <div class="video-container zoom-reveal">
+     <iframe width="560" height="315" src="https://www.youtube.com/embed/9JOUb8uBFwo" title="Presentación de servicios" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
     </div>
-  </section>
+  </div>
 
-  <section class="about-section">
-    <div class="about-content">
-      <div class="about-text">
-        <h2>Concepto Básico</h2>
-        <h3>Cohete Propulsado por Aire y Agua
-</h3>
-        <p>Un cohete propulsado por aire y agua utiliza la presión del aire comprimido para expulsar agua y generar impulso. Al liberar el tapón, el aire empuja el agua hacia abajo, lo que eleva el cohete hacia arriba.</p>
-        <div class="about-stats">
-        
-         
+  <div class="bottom-section reveal">
+    <h2>Funcionamiento</h2>
+    <p>Los cohetes propulsados a presión con agua son una forma divertida y educativa de demostrar la física, especialmente la tercera ley de Newton. Al llenar una botella de 1.5 a 2 litros con un tercio de agua y aplicar una presión de 70 a 80 psi, se genera un empuje eficaz al liberar el aire comprimido, lo que impulsa el cohete hacia arriba. Estos experimentos son ideales para comprender conceptos de propulsión y dinámica de manera segura. </p>
+    
+    <div class="bottom-grid">
+      <div class="stat-card">
+        <div class="stat-number">500mil Pa</div>
+        <div class="stat-label">Máxima Presión de Aire</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-number">30-40%</div>
+        <div class="stat-label">Cantidad Óptima de Agua</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-number">1.5-2L</div>
+        <div class="stat-label">Botella</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ideas-section reveal">
+    <h2 class="slide-reveal">Precauciones Importantes</h2>
+    <p class="zoom-reveal">para el lanzamiento de un cohete de agua</p>
+    
+    <div class="ideas-container">
+      <div class="idea-card reveal">
+        <div class="idea-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.5-13h1v6h-1zm0 8h1v2h-1z"/>
+          </svg>
         </div>
-        <button class="about-button">Ver más</button>
+        <h3>Uso de Protección Personal</h3>
+        <p>Siempre utiliza gafas de seguridad para proteger tus ojos de cualquier posible fragmento o chorro de agua a alta presión que pueda salir disparado durante el lanzamiento.</p>
       </div>
-      <div class="about-image">
-        <img src="imagenes/img2.jpg" alt="Nature conservation image" width="500" height="400">
+      
+      <div class="idea-card reveal">
+        <div class="idea-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 10l-6 18h12l-6-18z" fill="white"/>
+    <path d="M26 28l-10 10h4l6-6z" fill="white"/>
+    <path d="M42 28l10 10h-4l-6-6z" fill="white"/>
+    <path d="M32 50l-6-6h12l-6 6z" fill="white"/>
+    <path d="M32 10v14" stroke="white"/>
+    <path d="M32 50v4" stroke="white"/>
+    <path d="M32 36v4" stroke="white"/>
+    <path d="M30 50h4" stroke="white"/>
+</svg>
+
+        </div>
+        <h3>Lanzamiento en Espacio Abierto</h3>
+        <p>Asegúrate de realizar el lanzamiento en un área amplia y despejada, lejos de personas, animales y objetos, para evitar accidentes y daños.</p>
+      </div>
+      
+      <div class="idea-card reveal">
+        <div class="idea-icon">
+           <svg viewBox="0 0 24 24">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
+            <path d="M7 12h2v5H7zm4-7h2v12h-2zm4 4h2v8h-2z"/>
+          </svg>
+        </div>
+        <h3>No Exceder la Presión Recomendada</h3>
+        <p>No apliques más de 480 a 550 kPa en la botella, ya que superar esta presión puede hacer que la botella explote, poniendo en riesgo la seguridad de quienes están cerca. Siempre revisa el estado de la botella antes de usarla.</p>
       </div>
     </div>
-  </section>
+  </div>
+</body>
+  <script>
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('mouseover', () => {
+        card.style.transform = 'translateY(-10px)';
+      });
+      
+      card.addEventListener('mouseout', () => {
+        card.style.transform = 'translateY(0)';
+      });
+    });
+
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal, .zoom-reveal, .slide-reveal');
+      
+      reveals.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('load', reveal);
+  </script>
 
   <script>
     const hamburger = document.querySelector('.hamburger');
@@ -716,4 +778,4 @@ nav {
       observer.observe(el);
     });
   </script>
-</body></html>
+</html>
