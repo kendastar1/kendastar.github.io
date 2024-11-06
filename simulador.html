@@ -16,12 +16,12 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* Add this to prevent scrolling */
   }
   .simulation-area {
     flex: 1;
     position: relative;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden; /* Change from overflow-x: auto to hidden */
     touch-action: none;
   }
   .ground {
@@ -38,8 +38,6 @@
     );
     z-index: 5;
   }
-  
-  /* Plano cartesiano */
   .angle-reference {
     position: absolute;
     bottom: 160px;
@@ -80,7 +78,6 @@
     bottom: 160px;  
     left: 220px;    
   }
-  
   .grass {
     position: absolute;
     bottom: 100px;
@@ -90,7 +87,7 @@
     z-index: 6; 
   }
   .control-panel {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgb(255, 255, 255); /* Remove transparency */
     padding: 20px;
     border-radius: 10px;
     position: fixed;
@@ -98,6 +95,7 @@
     top: 20px;
     width: 300px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000; /* Add high z-index to keep it on top */
   }
   .slider-container {
     margin: 15px 0;
@@ -163,8 +161,6 @@
     font-weight: bold;
     pointer-events: none;
   }
-
-  /* Updated distance-markers styling */
   .distance-markers {
     position: absolute;
     bottom: 120px; 
@@ -185,8 +181,6 @@
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
     z-index: 11; 
   }
-  
-  /* Add axis line */
   .x-axis {
     position: absolute;
     bottom: 0; 
@@ -197,7 +191,6 @@
     min-width: 300px; /* Reduced from 400px to match new scale */
     z-index: 11; 
   }
-
   .axis-label {
     position: absolute;
     bottom: -35px; 
@@ -207,20 +200,15 @@
     font-size: 16px;
     z-index: 11; 
   }
-
-  /* Add to existing CSS */
   .cloud {
     position: absolute;
     opacity: 0.8;
     animation: floatCloud linear infinite;
   }
-
   @keyframes floatCloud {
     from { transform: translateX(-200px); }
     to { transform: translateX(100vw); }
   }
-
-  /* Add this to the CSS section */
   @keyframes explode {
     0% {
       transform: scale(1);
@@ -235,7 +223,6 @@
       opacity: 0;
     }
   }
-
   .explosion {
     position: absolute;
     width: 100px;
@@ -243,8 +230,6 @@
     pointer-events: none;
     z-index: 100;
   }
-
-  /* Add to existing CSS */
   #resetButton {
     width: 100%;
     padding: 12px;
@@ -259,13 +244,11 @@
     transition: background 0.3s;
     outline: none;
   }
-
   #resetButton:hover {
     background: #d32f2f;
   }
-
   .distance-panel {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgb(255, 255, 255); /* Remove transparency */
     padding: 15px;
     border-radius: 10px;
     position: fixed;
@@ -273,31 +256,27 @@
     top: 20px;
     width: 200px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000; /* Add high z-index to keep it on top */
   }
-
   .distance-panel h3 {
     margin: 0 0 10px 0;
     color: #333;
   }
-
   .distance-value {
     font-size: 24px;
     font-weight: bold;
     color: #2196F3;
     min-width: 120px; 
   }
-
   .height-value {
     font-size: 24px;
     font-weight: bold;
     color: #2196F3;
     min-width: 120px; 
   }
-
   button {
     outline: none;
   }
-
   #launchButton {
     width: 100%;
     padding: 12px;
@@ -312,8 +291,6 @@
     transition: background 0.3s;
     outline: none;
   }
-
-  /* Add to existing CSS */
   .air-pump {
     pointer-events: none;
     opacity: 0;
@@ -321,28 +298,22 @@
     bottom: 160px; /* Changed from 110px to 160px to place it in the middle */
     left: 50px;
   }
-
   @keyframes pumpHandle {
     0% { transform: translateY(0); }
     50% { transform: translateY(10px); }
     100% { transform: translateY(0); }
   }
-
   @keyframes airFlow {
     0% { stroke-dashoffset: 0; }
     100% { stroke-dashoffset: 20; }
   }
-
   .pumping .air-hose {
     stroke-dasharray: 4,4;
     animation: airFlow 0.5s linear infinite;
   }
-
   .pumping rect[y="0"] {
     animation: pumpHandle 0.5s linear infinite;
   }
-  
-  /* Add this to the CSS section */
   .title {
     text-align: center;
     color: white;
@@ -355,8 +326,6 @@
     width: 100%;
     z-index: 10;
   }
-
-  /* Add this to the CSS section */
   .mobile-warning {
     display: none;
     position: fixed;
@@ -364,8 +333,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
     padding: 20px;
     color: white;
     text-align: center;
@@ -373,31 +342,57 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Roboto', sans-serif;
   }
-
   .mobile-warning h2 {
     font-size: 24px;
     margin-bottom: 20px;
   }
-
   .mobile-warning p {
     font-size: 16px;
     line-height: 1.5;
     max-width: 80%;
   }
-
-  /* Hide warning on desktop */
+  @media (max-width: 767px) {
+    .mobile-warning {
+      display: flex !important;
+    }
+  }
   @media (min-width: 768px) {
     .mobile-warning {
       display: none !important;
     }
   }
-
-  @media (max-width: 767px) {
-    .mobile-warning {
-      display: flex !important;
-    }
+  .explosion-message {
+    position: relative; /* Add this */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 0, 0, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    text-align: center;
+    z-index: 1001;
+    display: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    max-width: 80%;
+  }
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+  }
+  .close-button:hover {
+    color: #ddd;
   }
 </style>
 </head>
@@ -405,6 +400,12 @@
 <div class="mobile-warning">
   <h2>⚠️ Aviso Importante</h2>
   <p>Este simulador está diseñado para ser utilizado en ordenadores. Por favor, accede desde un ordenador para la mejor experiencia.</p>
+</div>
+<div class="explosion-message">
+  <button class="close-button">&times;</button>
+  ⚠️ ¡PRECAUCIÓN! La botella ha explotado debido a la excesiva presión. 
+  <br><br>
+  Cuando la presión supera los 500,000 Pa, el riesgo de ruptura es muy alto.
 </div>
 <div class="container">
   <div class="distance-panel">
@@ -436,26 +437,20 @@
     </svg>
     
     <svg class="air-pump" width="60" height="140" viewBox="0 0 60 140" style="position: absolute; bottom: 160px; left: 50px; z-index: 10;">
-      <!-- Pump body -->
       <rect x="10" y="40" width="40" height="100" fill="#666" rx="5"/>
-      <!-- Pump handle -->
       <rect x="15" y="20" width="30" height="10" fill="#444" rx="2"/>
       <rect x="25" y="0" width="10" height="20" fill="#444"/>
-      <!-- Pump gauge -->
       <circle cx="30" cy="60" r="12" fill="#333"/>
       <circle cx="30" cy="60" r="10" fill="#fff"/>
-      <!-- Air hose -->
       <path d="M50,80 Q70,80 75,100 T80,120" stroke="#333" stroke-width="4" fill="none" class="air-hose"/>
     </svg>
     
-    <!-- Plano cartesiano y referencias de ángulos -->
     <div class="angle-reference"></div>
     <div class="angle-line angle-0"></div>
     <div class="angle-line angle-90"></div>
     <div class="angle-label label-0">90°</div>
     <div class="angle-label label-90">0°</div>
     
-    <!-- Display del ángulo actual -->
     <div class="current-angle-display">45°</div>
     
     <div class="launch-platform"></div>
@@ -484,7 +479,6 @@
         </filter>
       </defs>
       
-      <!-- Main bottle body -->
       <path d="M10,120 
                L10,45 
                C10,35 30,35 30,45 
@@ -493,7 +487,6 @@
             fill="url(#bottleGradient)" 
             filter="url(#bottleShadow)"/>
       
-      <!-- Bottle neck -->
       <path d="M15,45 
                L15,15 
                C15,10 25,10 25,15 
@@ -501,7 +494,6 @@
             fill="#81D4FA" 
             filter="url(#bottleShadow)"/>
       
-      <!-- Water level (keep existing id for functionality) -->
       <rect id="waterLevel" 
             x="10" 
             y="80" 
@@ -510,16 +502,13 @@
             fill="#2196F3" 
             opacity="0.8"/>
       
-      <!-- Bottle ridges -->
       <path d="M10,60 L30,60" stroke="#81D4FA" stroke-width="1"/>
       <path d="M10,80 L30,80" stroke="#81D4FA" stroke-width="1"/>
       <path d="M10,100 L30,100" stroke="#81D4FA" stroke-width="1"/>
       
-      <!-- Bottle cap/nose cone -->
       <path d="M15,15 L20,5 L25,15" 
             fill="#FF5252"/>
       
-      <!-- Fins -->
       <path d="M8,120 L10,100 L10,120 Z" fill="#FF5252"/>
       <path d="M32,120 L30,100 L30,120 Z" fill="#FF5252"/>
     </svg>
@@ -539,7 +528,7 @@
     
     <div class="slider-container">
       <label>Presión del Aire: <span id="pressureValue">200000</span> Pa</label>
-      <input type="range" min="100000" max="500000" step="10000" value="200000" id="pressureSlider">
+      <input type="range" min="100000" max="550000" step="10000" value="200000" id="pressureSlider">
     </div>
     
     <div class="slider-container">
@@ -649,9 +638,7 @@ function updatePressure(pressure) {
 
 function calculateTrajectoryPoint(time, angle, pressure, waterAmount) {
     const gravity = 9.81;
-    // Increased multiplier from 100 to 120 to allow for longer distances
     let initialVelocity = Math.sqrt(pressure / 100000) * (0.5 + waterAmount / 200) * 120; 
- 
   
   if (angle === 90 && pressure <= 1 && waterAmount <= 1) {
     const x = 110;
@@ -679,8 +666,7 @@ function updateTrajectoryPreview() {
     const points = [];
     let time = 0;
     const timeStep = 0.03;
-    const isMobile = checkMobileDevice();
-    const offset = isMobile ? 20 : 20; // Keep consistent 20px offset
+    const offset = 20; // Consistent 20px offset
     
     while (time < 4.0) {
         const point = calculateTrajectoryPoint(time, currentAngle, pressure, water);
@@ -710,13 +696,12 @@ function animateRocket(startTime) {
 
   distanceDisplay.textContent = `${distanceInMeters} metros`;
 
-  // Update height tracking to store maximum
   const heightInPixels = position.y - 160;
   const heightInMeters = Math.max(0, Math.round((heightInPixels / 55) * 10) / 10);
-  maxHeight = Math.max(maxHeight, heightInMeters); // Track maximum height
-  heightDisplay.textContent = `${maxHeight} metros`; // Display max height instead of current
+  maxHeight = Math.max(maxHeight, heightInMeters); 
+  heightDisplay.textContent = `${maxHeight} metros`; 
 
-  trailPoints.push(`${position.x + 20},${window.innerHeight - position.y}`); // Adjust trail points to be centered
+  trailPoints.push(`${position.x + 20},${window.innerHeight - position.y}`); 
   rocketTrail.setAttribute('d', `M ${trailPoints.join(' L ')}`);
 
   if (currentAngle === 90 && pressure <= 1 && water <= 1) {
@@ -742,21 +727,25 @@ function launchRocket() {
   if (isLaunched) return;
   
   const pressure = parseInt(pressureSlider.value);
-  if (pressure > 490000 && Math.random() < 0.7) { // 70% chance of explosion
+  if (pressure > 500000 && Math.random() < 0.7) {
     const explosion = document.querySelector('.explosion');
+    const message = document.querySelector('.explosion-message');
+    
     explosion.style.display = 'block';
+    message.style.display = 'block';
     explosion.style.left = rocket.getBoundingClientRect().left + 'px';
     explosion.style.top = rocket.getBoundingClientRect().top + 'px';
     explosion.style.animation = 'explode 1s forwards';
     
     rocket.style.display = 'none';
     
+    // Auto-dismiss after 7 seconds
     setTimeout(() => {
-      explosion.style.display = 'none';
-      explosion.style.animation = '';
-      resetRocket();
-      rocket.style.display = 'block';
-    }, 1000);
+      hideExplosionMessage();
+    }, 7000);
+    
+    // Add event listener for close button
+    document.querySelector('.close-button').addEventListener('click', hideExplosionMessage);
     
     return;
   }
@@ -771,7 +760,7 @@ function launchRocket() {
 }
 
 function resetRocket() {
-  maxHeight = 0; // Reset max height
+  maxHeight = 0; 
   isLaunched = false;
   trailPoints = [];
   rocketTrail.setAttribute('d', '');
@@ -784,56 +773,39 @@ function resetRocket() {
   airPump.classList.remove('active');
   airPump.classList.remove('pumping');
   cancelAnimationFrame(animationFrame);
+  hideExplosionMessage(); // Add this line to hide message when resetting
 }
 
-rocket.addEventListener('mousedown', (e) => {
+function hideExplosionMessage() {
+  const explosion = document.querySelector('.explosion');
+  const message = document.querySelector('.explosion-message');
+  
+  explosion.style.display = 'none';
+  message.style.display = 'none';
+  explosion.style.animation = '';
+  rocket.style.display = 'block';
+}
+
+simulationArea.addEventListener('mousedown', (e) => {
+  if (e.target.closest('.control-panel') || e.target.closest('.distance-panel')) {
+    return;
+  }
+  
   if (!isLaunched) {
-    isAdjusting = true;
-    rocket.classList.add('adjusting');
-    updateRocketAngle(calculateAngle(e));
+    isAdjusting = !isAdjusting; // Toggle adjustment mode
+    if (isAdjusting) {
+      rocket.classList.add('adjusting');
+      updateRocketAngle(calculateAngle(e));
+    } else {
+      rocket.classList.remove('adjusting');
+    }
   }
 });
-
-rocket.addEventListener('touchstart', (e) => {
-  if (!isLaunched) {
-    isAdjusting = true;
-    rocket.classList.add('adjusting');
-    const touch = e.touches[0];
-    const touchEvent = {
-      clientX: touch.clientX + 20, // Add 20px offset to center
-      clientY: touch.clientY
-    };
-    updateRocketAngle(calculateAngle(touchEvent));
-    e.preventDefault(); // Prevent scrolling while adjusting
-  }
-}, { passive: false });
 
 document.addEventListener('mousemove', (e) => {
   if (isAdjusting && !isLaunched) {
     updateRocketAngle(calculateAngle(e));
   }
-});
-
-document.addEventListener('touchmove', (e) => {
-  if (isAdjusting && !isLaunched) {
-    const touch = e.touches[0];
-    const touchEvent = {
-      clientX: touch.clientX + 20, // Add 20px offset to center
-      clientY: touch.clientY
-    };
-    updateRocketAngle(calculateAngle(touchEvent));
-    e.preventDefault(); // Prevent scrolling while adjusting
-  }
-}, { passive: false });
-
-document.addEventListener('mouseup', () => {
-  isAdjusting = false;
-  rocket.classList.remove('adjusting');
-});
-
-document.addEventListener('touchend', () => {
-  isAdjusting = false;
-  rocket.classList.remove('adjusting');
 });
 
 waterSlider.addEventListener('input', () => updateWaterLevel(waterSlider.value));
@@ -859,23 +831,22 @@ launchButton.addEventListener('mouseout', () => {
 
 function checkMobileDevice() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-         (window.innerWidth >= 1024 && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ||
-         ('ontouchstart' in window) ||
-         (navigator.maxTouchPoints > 0) ||
-         (navigator.msMaxTouchPoints > 0) ||
-         window.innerWidth < 768; // Add explicit width check
+         window.innerWidth < 768 || 
+         ('ontouchstart' in window) || 
+         (navigator.maxTouchPoints > 0) || 
+         (navigator.msMaxTouchPoints > 0);
 }
 
-// Update the mobile warning check
 function showMobileWarning() {
+  const warning = document.querySelector('.mobile-warning');
   if (checkMobileDevice()) {
-    document.querySelector('.mobile-warning').style.display = 'flex';
+    warning.style.display = 'flex';
   } else {
-    document.querySelector('.mobile-warning').style.display = 'none';
+    warning.style.display = 'none';
   }
 }
 
-// Add event listeners to detect changes
+document.addEventListener('DOMContentLoaded', showMobileWarning);
 window.addEventListener('resize', showMobileWarning);
 window.addEventListener('orientationchange', showMobileWarning);
 
