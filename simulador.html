@@ -12,7 +12,7 @@
   }
   .container {
     width: 100%;
-    min-width: 1000px; /* Increased to accommodate 50m distance */
+    min-width: 600px; /* Reduced from 800px */
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -22,14 +22,12 @@
     position: relative;
     overflow-x: auto;
     overflow-y: hidden;
-    touch-action: pan-x pinch-zoom; /* Changed from 'none' to allow zooming */
-    min-width: 2100px; /* Match ground width */
+    touch-action: none;
   }
   .ground {
     position: absolute;
     bottom: 0;
-    width: calc(100% + 300px); /* Increased width */
-    min-width: 2100px; /* Increased to match new distance */
+    width: 100%;
     height: 120px;
     background: repeating-linear-gradient(
       45deg,
@@ -39,7 +37,6 @@
       #1B5E20 20px
     );
     z-index: 5;
-    left: -150px; /* Offset to cover edges */
   }
   
   /* Plano cartesiano */
@@ -87,12 +84,10 @@
   .grass {
     position: absolute;
     bottom: 100px;
-    width: calc(100% + 300px); /* Increased width */
-    min-width: 2100px; /* Increased to match new distance */
+    width: 100%;
     height: 20px;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/svg/2000" viewBox="0 0 10 10"><path d="M0,10 L2,5 L4,10 L6,3 L8,10 L10,0 L10,10 Z" fill="%234CAF50"/></svg>') repeat-x;
-    z-index: 6;
-    left: -150px; /* Offset to cover edges */
+    z-index: 6; 
   }
   .control-panel {
     background: rgba(255, 255, 255, 0.95);
@@ -153,6 +148,10 @@
     pointer-events: none;
     z-index: 15; 
   }
+  #rocketTrail {
+    stroke-width: 2; /* Made thinner */
+    filter: drop-shadow(0 0 2px rgba(255,0,0,0.5));
+  }
   .current-angle-display {
     position: absolute;
     bottom: 200px;
@@ -195,7 +194,7 @@
     height: 2px;
     background: rgba(255, 255, 255, 0.9);
     width: calc(100% - 120px);
-    min-width: 2100px; /* Increased to match new distance */
+    min-width: 300px; /* Reduced from 400px to match new scale */
     z-index: 11; 
   }
 
@@ -218,7 +217,7 @@
 
   @keyframes floatCloud {
     from { transform: translateX(-200px); }
-    to { transform: translateX(2100px); } /* Increased to match new width */
+    to { transform: translateX(100vw); }
   }
 
   /* Add this to the CSS section */
@@ -342,9 +341,65 @@
   .pumping rect[y="0"] {
     animation: pumpHandle 0.5s linear infinite;
   }
+  
+  /* Add this to the CSS section */
+  .title {
+    text-align: center;
+    color: white;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+  }
+
+  /* Add this to the CSS section */
+  .mobile-warning {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .mobile-warning h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .mobile-warning p {
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 80%;
+  }
+
+  /* Hide warning on desktop */
+  @media (min-width: 768px) {
+    .mobile-warning {
+      display: none !important;
+    }
+  }
 </style>
 </head>
 <body>
+<div class="mobile-warning">
+  <h2>⚠️ Aviso Importante</h2>
+  <p>Este simulador está diseñado para ser utilizado en ordenadores. Por favor, accede desde un ordenador para la mejor experiencia.</p>
+</div>
 <div class="container">
   <div class="distance-panel">
     <h3>Distancia Recorrida</h3>
@@ -353,6 +408,7 @@
     <div class="height-value">0 metros</div>
   </div>
   <div class="simulation-area">
+    <h1 class="title">Simulador de Cohete de Agua</h1>
     <svg class="cloud" width="100" height="40" style="top: 15%; animation-duration: 30s;">
       <path fill="white" d="M10,30 A10,10 0 0,1 20,20 A15,15 0 0,1 50,15 A10,10 0 0,1 65,25 A8,8 0 0,1 75,20 A10,10 0 0,1 90,30 Z"/>
     </svg>
@@ -370,7 +426,7 @@
     </svg>
 
     <svg class="trajectory" width="100%" height="100%" style="position: absolute; pointer-events: none;">
-      <path id="rocketTrail" stroke="#FF0000" stroke-width="3" fill="none" opacity="0.6"/>
+      <path id="rocketTrail" stroke="#FF0000" fill="none" opacity="0.6"/>
     </svg>
     
     <svg class="air-pump" width="60" height="140" viewBox="0 0 60 140" style="position: absolute; bottom: 160px; left: 50px; z-index: 10;">
@@ -510,7 +566,6 @@ const heightDisplay = document.querySelector('.height-value');
 const airPump = document.querySelector('.air-pump');
 
 let isAdjusting = false;
-let isClickMode = false;
 let isLaunched = false;
 let currentAngle = 45;
 let maxHeight = 0;
@@ -531,12 +586,12 @@ function createDistanceMarkers() {
     distanceMarkers.appendChild(xLabel);
     
     const startX = 110; 
-    const metersToPixels = 40; 
+    const metersToPixels = 55; // Slightly reduced this to bring markers closer together
 
-    const maxMeters = 50; // Changed to 50 meters
+    const maxMeters = 40; // Changed from 20 to 40 meters
     const stepMeters = 10; 
     
-    for(let meters = 0; meters <= maxMeters; meters += stepMeters) { 
+        for(let meters = 0; meters <= maxMeters; meters += stepMeters) { 
 
         const x = startX + (meters * metersToPixels);
         const marker = document.createElement('div');
@@ -588,25 +643,27 @@ function updatePressure(pressure) {
 
 function calculateTrajectoryPoint(time, angle, pressure, waterAmount) {
     const gravity = 9.81;
-    let initialVelocity = Math.sqrt(pressure / 100000) * (0.5 + waterAmount / 200) * 100; 
-
-    if (angle === 90 && pressure <= 1 && waterAmount <= 1) {
-      const x = 110;
-      const y = 160 + (initialVelocity * time) - (0.5 * gravity * time * time);
-      return { x, y };
-    }
-    
-    const angleRad = (90 - angle) * Math.PI / 180;
-    
+    // Increased multiplier from 100 to 120 to allow for longer distances
+    let initialVelocity = Math.sqrt(pressure / 100000) * (0.5 + waterAmount / 200) * 120; 
+ 
+  
+  if (angle === 90 && pressure <= 1 && waterAmount <= 1) {
+    const x = 110;
+    const y = 160 + (initialVelocity * time) - (0.5 * gravity * time * time);
+    return { x, y };
+  }
+  
+  const angleRad = (90 - angle) * Math.PI / 180;
+  
     const airResistance = 0.015;
 
-    const horizontalVelocity = initialVelocity * Math.cos(angleRad) * Math.exp(-airResistance * time);
-    const verticalVelocity = initialVelocity * Math.sin(angleRad) - gravity * time;
-    
-    const x = 110 + horizontalVelocity * time;
-    const y = 160 + verticalVelocity * time - (0.5 * gravity * time * time);
-    
-    return { x, y };
+  const horizontalVelocity = initialVelocity * Math.cos(angleRad) * Math.exp(-airResistance * time);
+  const verticalVelocity = initialVelocity * Math.sin(angleRad) - gravity * time;
+  
+  const x = 110 + horizontalVelocity * time;
+  const y = 160 + verticalVelocity * time - (0.5 * gravity * time * time);
+  
+  return { x, y };
 }
 
 function updateTrajectoryPreview() {
@@ -642,8 +699,7 @@ function animateRocket(startTime) {
   const trajectoryAngle = Math.atan2(-deltaY, deltaX) * 180 / Math.PI;
   
   const distanceInPixels = position.x - 110; 
-  const distanceInMeters = Math.min(Math.round((distanceInPixels / 40) * 10) / 10, 50); // Changed cap to 50
-
+  const distanceInMeters = Math.min(Math.round((distanceInPixels / 55) * 10) / 10, 40); // Changed max from 20 to 40
 
   distanceDisplay.textContent = `${distanceInMeters} metros`;
 
@@ -653,9 +709,7 @@ function animateRocket(startTime) {
   maxHeight = Math.max(maxHeight, heightInMeters); // Track maximum height
   heightDisplay.textContent = `${maxHeight} metros`; // Display max height instead of current
 
-  const rocketWidth = 40; // Width of rocket SVG
-  const centerOffset = rocketWidth / 2;
-  trailPoints.push(`${position.x + centerOffset},${window.innerHeight - position.y}`);
+  trailPoints.push(`${position.x + 20},${window.innerHeight - position.y}`); // Adjust trail points to be centered
   rocketTrail.setAttribute('d', `M ${trailPoints.join(' L ')}`);
 
   if (currentAngle === 90 && pressure <= 1 && water <= 1) {
@@ -723,61 +777,47 @@ function resetRocket() {
   airPump.classList.remove('active');
   airPump.classList.remove('pumping');
   cancelAnimationFrame(animationFrame);
-  isClickMode = false;
-  rocket.classList.remove('adjusting');
 }
 
-simulationArea.addEventListener('mousedown', (e) => {
+rocket.addEventListener('mousedown', (e) => {
   if (!isLaunched) {
-    isClickMode = !isClickMode;
-    if (isClickMode) {
-      rocket.classList.add('adjusting');
-      updateRocketAngle(calculateAngle(e));
-    } else {
-      rocket.classList.remove('adjusting');
-    }
+    isAdjusting = true;
+    rocket.classList.add('adjusting');
+    updateRocketAngle(calculateAngle(e));
   }
 });
 
-simulationArea.addEventListener('touchstart', (e) => {
-  // Only handle rocket control if touching near the rocket
-  const touch = e.touches[0];
-  const rocketRect = rocket.getBoundingClientRect();
-  const touchNearRocket = 
-    touch.clientX >= rocketRect.left - 50 && 
-    touch.clientX <= rocketRect.right + 50 &&
-    touch.clientY >= rocketRect.top - 50 && 
-    touch.clientY <= rocketRect.bottom + 50;
-
-  if (!isLaunched && touchNearRocket) {
+rocket.addEventListener('touchstart', (e) => {
+  if (!isLaunched) {
+    isAdjusting = true;
     rocket.classList.add('adjusting');
+    const touch = e.touches[0];
     updateRocketAngle(calculateAngle(touch));
-    e.preventDefault(); // Only prevent default if touching near rocket
+    e.preventDefault(); // Prevent scrolling while adjusting
   }
 });
 
 document.addEventListener('mousemove', (e) => {
-  if (isClickMode && !isLaunched) {
+  if (isAdjusting && !isLaunched) {
     updateRocketAngle(calculateAngle(e));
   }
 });
 
 document.addEventListener('touchmove', (e) => {
-  if (!isLaunched && e.touches.length > 0 && rocket.classList.contains('adjusting')) {
+  if (isAdjusting && !isLaunched) {
     const touch = e.touches[0];
     updateRocketAngle(calculateAngle(touch));
-    e.preventDefault();
+    e.preventDefault(); // Prevent scrolling while adjusting
   }
 });
 
 document.addEventListener('mouseup', () => {
-  // Only remove adjusting class if we're not in click mode
-  if (!isClickMode) {
-    rocket.classList.remove('adjusting');
-  }
+  isAdjusting = false;
+  rocket.classList.remove('adjusting');
 });
 
 document.addEventListener('touchend', () => {
+  isAdjusting = false;
   rocket.classList.remove('adjusting');
 });
 
@@ -801,6 +841,32 @@ launchButton.addEventListener('mouseover', () => {
 launchButton.addEventListener('mouseout', () => {
   launchButton.style.background = '#2196F3';
 });
+
+function checkMobileDevice() {
+  // Check if it's a mobile device
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  // Check if it's desktop mode on mobile
+  const isDesktopMode = window.innerWidth >= 1024 && isMobile;
+  
+  return isMobile || isDesktopMode;
+}
+
+// Update the mobile warning check
+function showMobileWarning() {
+  if (checkMobileDevice()) {
+    document.querySelector('.mobile-warning').style.display = 'flex';
+  } else {
+    document.querySelector('.mobile-warning').style.display = 'none';
+  }
+}
+
+// Add event listeners to detect changes
+window.addEventListener('resize', showMobileWarning);
+window.addEventListener('orientationchange', showMobileWarning);
+
+// Initial check
+showMobileWarning();
 
 updateRocketAngle(45);
 updateWaterLevel(50);
