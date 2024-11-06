@@ -1,0 +1,426 @@
+:root {
+  --primary: #2ecc71;
+  --secondary: #27ae60;
+  --dark: #1e8449;
+  --light: #e8f5e9;
+  --accent: #78e08f;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #ffffff; /* Changed from gradient to white */
+  color: var(--dark);
+}
+
+.header {
+ background: linear-gradient(45deg, #005524, #09fa6f);
+  color: white;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(46, 204, 113, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  animation: fadeInDown 1s ease;
+}
+
+.header p {
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.5s forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.construction-steps {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.step-card {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95); /* Updated background */
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(46, 204, 113, 0.2); /* Slightly increased shadow for better contrast */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.step-content {
+  flex: 1;
+  margin-left: 2rem;
+}
+
+.step-content img {
+  max-width: 400px;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  margin-top: 1.5rem;
+}
+
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(46, 204, 113, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.step-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(46, 204, 113, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.step-card:hover::before {
+  transform: translateX(100%);
+}
+
+.step-icon {
+  width: 80px;
+  height: 80px;
+  fill: var(--primary);
+  transition: transform 0.3s ease;
+}
+
+.step-card:hover .step-icon {
+  transform: rotate(360deg);
+}
+
+.progress-bar {
+  height: 10px;
+  background: rgba(46, 204, 113, 0.2);
+  border-radius: 5px;
+  margin: 2rem auto;
+  max-width: 800px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.progress {
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  width: 0%;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px var(--primary);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px var(--primary),
+                0 0 10px var(--primary),
+                0 0 15px var(--secondary);
+  }
+  to {
+    box-shadow: 0 0 10px var(--primary),
+                0 0 20px var(--primary),
+                0 0 30px var(--secondary);
+  }
+}
+
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+
+.eco-section {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  padding: 3rem;
+  margin: 3rem auto;
+  border-radius: 20px;
+  max-width: 1200px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+}
+
+.eco-tips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+}
+
+.eco-tip {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem;
+  background: rgba(255,255,255,0.15);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.eco-tip:hover {
+  transform: translateY(-10px);
+  background: rgba(255,255,255,0.2);
+}
+
+.green-icon {
+  fill: white;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 1rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.sustainability-banner {
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  margin: 2rem auto;
+  max-width: 800px;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sustainability-banner h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.sustainability-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.header-image {
+  margin-top: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(255,255,255,0.2);
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.step-image {
+  margin-top: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transition: all 0.5s ease;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.step-card:hover .step-image {
+  filter: brightness(1.1);
+  transform: scale(1.05) translateY(-5px);
+}
+
+.eco-tip img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.testimonials {
+  padding: 4rem 2rem;
+  background: #ffffff; /* Changed from gradient to white */
+  margin: 3rem 0;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.testimonial-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(46, 204, 113, 0.15);
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(46, 204, 113, 0.25);
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(46, 204, 113, 0.15);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid var(--light);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+
+.submit-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.submit-btn:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .header-image {
+    height: 300px;
+  }
+  
+  .step-card {
+    flex-direction: column;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .step-content {
+    margin-left: 0;
+    margin-top: 1.5rem;
+  }
+
+  .step-content img {
+    max-width: 100%;
+    height: 200px;
+  }
+}

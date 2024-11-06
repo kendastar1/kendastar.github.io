@@ -2,6 +2,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bienvenidos</title>
+<link rel="stylesheet" type="text/css" href="css/style2.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --primary-green: #4CAF50;
@@ -567,95 +570,183 @@ nav {
       
     </div>
   </nav>
+<div class="header">
+  <h1 style="padding-top: 60px;">Fórmulas Para Calcular</h1>
+  <p>Cálculo de Altura y Alcance Máximo de un Cohete Propulsado por Agua</p>
+  <img src="imagenes/imagen.jpg" alt="arquitecto revisando planos de construcción, estilo moderno profesional" class="header-image">
+</div>
 
-  <section class="hero">
-    <h1>Cohete de agua a presion</h1>
-    <h2>BIENVENIDOS</h2>
-    <p>Podrías explorar todo acerca de esta simulación</p>
-    <div class="hero-buttons">
-      <button class="btn btn-primary">Ver más</button>
-      <button class="btn btn-secondary">Simulación</button>
+<div class="progress-bar">
+  <div class="progress" id="progressBar"></div>
+</div>
+
+<div class="construction-steps">
+  <div class="step-card" onclick="updateProgress(20)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>1. Volumen del agua</h3>
+      <p>Multiplica el volumen total del cohete por el porcentaje de agua dividido entre 100.</p>
+      <img src="imagenes/f1.png" alt="arquitectos trabajando en planos, estilo corporativo moderno" class="step-image">
     </div>
-  </section>
+  </div>
 
-  <section class="features">
-    <div class="feature-card">
-      <a href="Funcionamiento1.html" style="text-decoration: none;">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <!-- Main rocket body -->
-        <path d="M12 2C11 3 8.5 5.5 8.5 9.5C8.5 11.8 9.44 13.77 10.5 15C11.2 13.3 12.8 12 12 12C11.2 12 12.8 13.3 13.5 15C14.56 13.77 15.5 11.8 15.5 9.5C15.5 5.5 13 3 12 2Z"/>
-        <!-- Rocket window -->
-        <circle cx="12" cy="8" r="1.5"/>
-        <!-- Side boosters -->
-        <path d="M15.5 10L17 14L16 15.5L12 14L8 15.5L7 14L8.5 10"/>
-        <!-- Flames -->
-        <path d="M10.5 15.5L12 19L13.5 15.5" fill="var(--primary-green)">
-          <animate attributeName="d" 
-                   dur="0.5s"
-                   repeatCount="indefinite"
-                   values="M10.5 15.5L12 19L13.5 15.5;
-                           M10.5 15.5L12 20L13.5 15.5;
-                           M10.5 15.5L12 19L13.5 15.5"/>
-        </path>
+  <div class="step-card" onclick="updateProgress(40)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M15,19H9V12.5C9,12.22 9.22,12 9.5,12H14.5C14.78,12 15,12.22 15,12.5V19M19,20H5V11H19V20M19,4H15V3H9V4H5C3.89,4 3,4.89 3,6V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V6C21,4.89 20.1,4 19,4Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>2. Cimientos</h3>
+      <p>Prepara el terreno y construye los cimientos sólidos</p>
+      <img src="https://images.unsplash.com/photo-1590644365607-1ccf5bb62877" alt="construcción de cimientos, obra en progreso" class="step-image">
+    </div>
+  </div>
+
+  <div class="step-card" onclick="updateProgress(60)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M17,19H7V5H17M17,3H7A2,2 0 0,0 5,5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V5C19,3.89 18.1,3 17,3Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>3. Estructura</h3>
+      <p>Levanta las paredes y construye el esqueleto del edificio</p>
+      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd" alt="estructura de edificio en construcción, vista arquitectónica" class="step-image">
+    </div>
+  </div>
+
+  <div class="step-card" onclick="updateProgress(80)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M12,3L2,12H5V20H19V12H22L12,3M12,7.7C14.1,7.7 15.8,9.4 15.8,11.5C15.8,13.6 14.1,15.3 12,15.3C9.9,15.3 8.2,13.6 8.2,11.5C8.2,9.4 9.9,7.7 12,7.7Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>4. Instalaciones</h3>
+      <p>Realiza las instalaciones eléctricas, plomería y acabados</p>
+    </div>
+  </div>
+
+  <div class="step-card" onclick="updateProgress(100)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>5. Terminaciones</h3>
+      <p>Finaliza con los detalles y acabados finales</p>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="sustainability-banner">
+  <h2>¡Construye de manera sostenible!</h2>
+  <p>Implementando prácticas eco-amigables en cada paso</p>
+</div>
+
+<div class="eco-section">
+  <h2>Consejos para una Construcción Verde</h2>
+  <div class="eco-tips">
+    <div class="eco-tip">
+      <svg class="green-icon" viewBox="0 0 24 24">
+        <path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"/>
       </svg>
-      <h3 class="feature-title">Como funciona</h3>
-      <p class="feature-subtitle">El funcionamiento</p>
-       </a>
+      <h3>Materiales Sostenibles</h3>
+      <p>Utiliza materiales reciclados y certificados ambientalmente</p>
     </div>
-
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"/>
+    
+    <div class="eco-tip">
+      <svg class="green-icon" viewBox="0 0 24 24">
+        <path d="M12,2L1,21H23M12,6L19.53,19H4.47M11,10V14H13V10M11,16V18H13V16"/>
       </svg>
-      <h3 class="feature-title">Pasos para la construccion</h3>
-      <p class="feature-subtitle">podras ver como se contruye</p>
+      <h3>Energía Solar</h3>
+      <p>Implementa paneles solares y sistemas de energía renovable</p>
     </div>
-
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z"/>
+    
+    <div class="eco-tip">
+      <svg class="green-icon" viewBox="0 0 24 24">
+        <path d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z"/>
       </svg>
-      <h3 class="feature-title">Formula</h3>
-      <p class="feature-subtitle">Podras ver la formula</p>
+      <h3>Gestión del Agua</h3>
+      <p>Sistemas de recolección y reutilización de agua lluvia</p>
     </div>
+  </div>
+</div>
 
-    <div class="feature-card">
-      <a href="simulador.html" style="text-decoration: none;">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M3,12H7A5,5 0 0,1 12,7A5,5 0 0,1 17,12H21A1,1 0 0,1 22,13A1,1 0 0,1 21,14H3A1,1 0 0,1 2,13A1,1 0 0,1 3,12M15,12A3,3 0 0,0 12,9A3,3 0 0,0 9,12H15M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M3.34,7L7.5,6.65C6.9,7.16 6.36,7.78 5.94,8.5C5.5,9.24 5.25,10 5.11,10.79L3.34,7M20.65,7L18.88,10.79C18.74,10 18.47,9.23 18.05,8.5C17.63,7.78 17.1,7.15 16.5,6.64L20.65,7M12.71,20.71L15.82,17.6C16.21,17.21 16.21,16.57 15.82,16.18C15.43,15.79 14.8,15.79 14.41,16.18L12,18.59L9.59,16.18C9.2,15.79 8.57,15.79 8.18,16.18C7.79,16.57 7.79,17.21 8.18,17.6L11.29,20.71C11.68,21.1 12.32,21.1 12.71,20.71Z"/>
-      </svg>
-      <h3 class="feature-title" >Simulador</h3>
-      <p class="feature-subtitle">Podras ver el simulador</p>
-      </a>
-    </div>
-
-    <div class="feature-card">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M15,16H9V14H15V16M17,12H7V10H17V12M13,8V3.5L17.5,8H13Z"/>
-      </svg>
-      <h3 class="feature-title">Integrantes</h3>
-      <p class="feature-subtitle">jovenes</p>
-    </div>
-  </section>
-
-  <section class="about-section">
-    <div class="about-content">
-      <div class="about-text">
-        <h2>Concepto Básico</h2>
-        <h3>Cohete Propulsado por Aire y Agua
-</h3>
-        <p>Un cohete propulsado por aire y agua utiliza la presión del aire comprimido para expulsar agua y generar impulso. Al liberar el tapón, el aire empuja el agua hacia abajo, lo que eleva el cohete hacia arriba.</p>
-        <div class="about-stats">
-        
-         
+<div class="testimonials">
+  <h2 style="text-align: center; margin-bottom: 3rem;">Lo Que Dicen Nuestros Clientes</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-header">
+        <div class="testimonial-avatar">M</div>
+        <div>
+          <h4>María González</h4>
+          <p>Propietaria</p>
         </div>
-        <button class="about-button">Ver más</button>
       </div>
-      <div class="about-image">
-        <img src="imagenes/img2.jpg" alt="Nature conservation image" width="500" height="400">
-      </div>
+      <p>"El proceso de construcción fue muy claro y organizado. Los resultados superaron nuestras expectativas."</p>
     </div>
-  </section>
+    <div class="testimonial-card">
+      <div class="testimonial-header">
+        <div class="testimonial-avatar">J</div>
+        <div>
+          <h4>Juan Pérez</h4>
+          <p>Desarrollador</p>
+        </div>
+      </div>
+      <p>"La guía interactiva nos ayudó a mantener el proyecto en tiempo y dentro del presupuesto."</p>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-header">
+        <div class="testimonial-avatar">A</div>
+        <div>
+          <h4>Ana Martínez</h4>
+          <p>Arquitecta</p>
+        </div>
+      </div>
+      <p>"Una herramienta invaluable para la planificación y ejecución de proyectos de construcción."</p>
+    </div>
+  </div>
+</div>
+
+<div class="contact-form">
+  <h2 style="text-align: center; margin-bottom: 2rem;">¿Listo para Empezar tu Proyecto?</h2>
+  <form id="consultationForm" onsubmit="event.preventDefault(); submitForm();">
+    <div class="form-group">
+      <input type="text" placeholder="Nombre" required>
+    </div>
+    <div class="form-group">
+      <input type="email" placeholder="Correo Electrónico" required>
+    </div>
+    <div class="form-group">
+      <textarea placeholder="Describe tu proyecto" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Solicitar Consulta</button>
+  </form>
+</div>
+
+<script>
+let currentProgress = 0;
+
+function updateProgress(value) {
+    currentProgress = value;
+    document.getElementById('progressBar').style.width = `${value}%`;
+}
+
+function resetProgress() {
+    updateProgress(0);
+}
+
+function submitForm() {
+  alert('¡Gracias por tu interés! Te contactaremos pronto.');
+  document.getElementById('consultationForm').reset();
+}
+
+// Animación inicial
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        document.getElementById('progressBar').style.width = '0%';
+    }, 300);
+});
+</script>
 
   <script>
     const hamburger = document.querySelector('.hamburger');
