@@ -675,14 +675,14 @@ function updateTrajectoryPreview() {
     const timeStep = 0.03;
     
     while (time < 4.0) {
-
-    const point = calculateTrajectoryPoint(time, currentAngle, pressure, water);
-    if (point.y < 120) break;
-    points.push(`${point.x},${window.innerHeight - point.y}`);
-    time += timeStep;
-  }
-  
-  path.setAttribute('d', `M ${points.join(' L ')}`);
+        const point = calculateTrajectoryPoint(time, currentAngle, pressure, water);
+        if (point.y < 120) break;
+        // Add 20 pixels to x coordinate to center with rocket position
+        points.push(`${point.x + 20},${window.innerHeight - point.y}`);
+        time += timeStep;
+    }
+    
+    path.setAttribute('d', `M ${points.join(' L ')}`);
 }
 
 function animateRocket(startTime) {
