@@ -12,7 +12,7 @@
   }
   .container {
     width: 100%;
-    min-width: 800px; /* Increased to accommodate 40m distance */
+    min-width: 1000px; /* Increased to accommodate 50m distance */
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -22,12 +22,14 @@
     position: relative;
     overflow-x: auto;
     overflow-y: hidden;
-    touch-action: none;
+    touch-action: pan-x pinch-zoom; /* Changed from 'none' to allow zooming */
+    min-width: 2100px; /* Match ground width */
   }
   .ground {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: calc(100% + 300px); /* Increased width */
+    min-width: 2100px; /* Increased to match new distance */
     height: 120px;
     background: repeating-linear-gradient(
       45deg,
@@ -37,6 +39,7 @@
       #1B5E20 20px
     );
     z-index: 5;
+    left: -150px; /* Offset to cover edges */
   }
   
   /* Plano cartesiano */
@@ -84,10 +87,12 @@
   .grass {
     position: absolute;
     bottom: 100px;
-    width: 100%;
+    width: calc(100% + 300px); /* Increased width */
+    min-width: 2100px; /* Increased to match new distance */
     height: 20px;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/svg/2000" viewBox="0 0 10 10"><path d="M0,10 L2,5 L4,10 L6,3 L8,10 L10,0 L10,10 Z" fill="%234CAF50"/></svg>') repeat-x;
-    z-index: 6; 
+    z-index: 6;
+    left: -150px; /* Offset to cover edges */
   }
   .control-panel {
     background: rgba(255, 255, 255, 0.95);
@@ -190,7 +195,7 @@
     height: 2px;
     background: rgba(255, 255, 255, 0.9);
     width: calc(100% - 120px);
-    min-width: 1700px; /* Increased to accommodate longer distance */
+    min-width: 2100px; /* Increased to match new distance */
     z-index: 11; 
   }
 
@@ -213,7 +218,7 @@
 
   @keyframes floatCloud {
     from { transform: translateX(-200px); }
-    to { transform: translateX(100vw); }
+    to { transform: translateX(2100px); } /* Increased to match new width */
   }
 
   /* Add this to the CSS section */
@@ -337,20 +342,6 @@
   .pumping rect[y="0"] {
     animation: pumpHandle 0.5s linear infinite;
   }
-  
-  /* Add this to the CSS section */
-  .title {
-    text-align: center;
-    color: white;
-    padding: 20px 0;
-    font-size: 24px;
-    font-weight: 500;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    margin: 0;
-    position: absolute;
-    width: 100%;
-    z-index: 10;
-  }
 </style>
 </head>
 <body>
@@ -362,7 +353,6 @@
     <div class="height-value">0 metros</div>
   </div>
   <div class="simulation-area">
-    <h1 class="title">Simulador de Cohete de Agua</h1>
     <svg class="cloud" width="100" height="40" style="top: 15%; animation-duration: 30s;">
       <path fill="white" d="M10,30 A10,10 0 0,1 20,20 A15,15 0 0,1 50,15 A10,10 0 0,1 65,25 A8,8 0 0,1 75,20 A10,10 0 0,1 90,30 Z"/>
     </svg>
@@ -541,12 +531,12 @@ function createDistanceMarkers() {
     distanceMarkers.appendChild(xLabel);
     
     const startX = 110; 
-    const metersToPixels = 40; // Reduced to fit more distance in same space
+    const metersToPixels = 40; 
 
-    const maxMeters = 40; // Changed from 30 to 40 meters
+    const maxMeters = 50; // Changed to 50 meters
     const stepMeters = 10; 
     
-        for(let meters = 0; meters <= maxMeters; meters += stepMeters) { 
+    for(let meters = 0; meters <= maxMeters; meters += stepMeters) { 
 
         const x = startX + (meters * metersToPixels);
         const marker = document.createElement('div');
@@ -599,25 +589,24 @@ function updatePressure(pressure) {
 function calculateTrajectoryPoint(time, angle, pressure, waterAmount) {
     const gravity = 9.81;
     let initialVelocity = Math.sqrt(pressure / 100000) * (0.5 + waterAmount / 200) * 100; 
- 
-  
-  if (angle === 90 && pressure <= 1 && waterAmount <= 1) {
-    const x = 110;
-    const y = 160 + (initialVelocity * time) - (0.5 * gravity * time * time);
-    return { x, y };
-  }
-  
-  const angleRad = (90 - angle) * Math.PI / 180;
-  
+
+    if (angle === 90 && pressure <= 1 && waterAmount <= 1) {
+      const x = 110;
+      const y = 160 + (initialVelocity * time) - (0.5 * gravity * time * time);
+      return { x, y };
+    }
+    
+    const angleRad = (90 - angle) * Math.PI / 180;
+    
     const airResistance = 0.015;
 
-  const horizontalVelocity = initialVelocity * Math.cos(angleRad) * Math.exp(-airResistance * time);
-  const verticalVelocity = initialVelocity * Math.sin(angleRad) - gravity * time;
-  
-  const x = 110 + horizontalVelocity * time;
-  const y = 160 + verticalVelocity * time - (0.5 * gravity * time * time);
-  
-  return { x, y };
+    const horizontalVelocity = initialVelocity * Math.cos(angleRad) * Math.exp(-airResistance * time);
+    const verticalVelocity = initialVelocity * Math.sin(angleRad) - gravity * time;
+    
+    const x = 110 + horizontalVelocity * time;
+    const y = 160 + verticalVelocity * time - (0.5 * gravity * time * time);
+    
+    return { x, y };
 }
 
 function updateTrajectoryPreview() {
@@ -653,7 +642,7 @@ function animateRocket(startTime) {
   const trajectoryAngle = Math.atan2(-deltaY, deltaX) * 180 / Math.PI;
   
   const distanceInPixels = position.x - 110; 
-    const distanceInMeters = Math.min(Math.round((distanceInPixels / 40) * 10) / 10, 40); // Changed cap to 40
+  const distanceInMeters = Math.min(Math.round((distanceInPixels / 40) * 10) / 10, 50); // Changed cap to 50
 
 
   distanceDisplay.textContent = `${distanceInMeters} metros`;
@@ -751,11 +740,19 @@ simulationArea.addEventListener('mousedown', (e) => {
 });
 
 simulationArea.addEventListener('touchstart', (e) => {
-  if (!isLaunched) {
+  // Only handle rocket control if touching near the rocket
+  const touch = e.touches[0];
+  const rocketRect = rocket.getBoundingClientRect();
+  const touchNearRocket = 
+    touch.clientX >= rocketRect.left - 50 && 
+    touch.clientX <= rocketRect.right + 50 &&
+    touch.clientY >= rocketRect.top - 50 && 
+    touch.clientY <= rocketRect.bottom + 50;
+
+  if (!isLaunched && touchNearRocket) {
     rocket.classList.add('adjusting');
-    const touch = e.touches[0];
     updateRocketAngle(calculateAngle(touch));
-    e.preventDefault();
+    e.preventDefault(); // Only prevent default if touching near rocket
   }
 });
 
@@ -766,7 +763,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 document.addEventListener('touchmove', (e) => {
-  if (!isLaunched && e.touches.length > 0) {
+  if (!isLaunched && e.touches.length > 0 && rocket.classList.contains('adjusting')) {
     const touch = e.touches[0];
     updateRocketAngle(calculateAngle(touch));
     e.preventDefault();
