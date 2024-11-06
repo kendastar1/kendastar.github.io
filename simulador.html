@@ -393,6 +393,12 @@
       display: none !important;
     }
   }
+
+  @media (max-width: 767px) {
+    .mobile-warning {
+      display: flex !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -673,12 +679,13 @@ function updateTrajectoryPreview() {
     const points = [];
     let time = 0;
     const timeStep = 0.03;
+    const isMobile = checkMobileDevice();
+    const offset = isMobile ? 20 : 20; // Keep consistent 20px offset
     
     while (time < 4.0) {
         const point = calculateTrajectoryPoint(time, currentAngle, pressure, water);
         if (point.y < 120) break;
-        // Add 20 pixels to x coordinate to center with rocket position
-        points.push(`${point.x + 20},${window.innerHeight - point.y}`);
+        points.push(`${point.x + offset},${window.innerHeight - point.y}`);
         time += timeStep;
     }
     
@@ -792,10 +799,14 @@ rocket.addEventListener('touchstart', (e) => {
     isAdjusting = true;
     rocket.classList.add('adjusting');
     const touch = e.touches[0];
-    updateRocketAngle(calculateAngle(touch));
+    const touchEvent = {
+      clientX: touch.clientX + 20, // Add 20px offset to center
+      clientY: touch.clientY
+    };
+    updateRocketAngle(calculateAngle(touchEvent));
     e.preventDefault(); // Prevent scrolling while adjusting
   }
-});
+}, { passive: false });
 
 document.addEventListener('mousemove', (e) => {
   if (isAdjusting && !isLaunched) {
@@ -806,10 +817,14 @@ document.addEventListener('mousemove', (e) => {
 document.addEventListener('touchmove', (e) => {
   if (isAdjusting && !isLaunched) {
     const touch = e.touches[0];
-    updateRocketAngle(calculateAngle(touch));
+    const touchEvent = {
+      clientX: touch.clientX + 20, // Add 20px offset to center
+      clientY: touch.clientY
+    };
+    updateRocketAngle(calculateAngle(touchEvent));
     e.preventDefault(); // Prevent scrolling while adjusting
   }
-});
+}, { passive: false });
 
 document.addEventListener('mouseup', () => {
   isAdjusting = false;
@@ -843,13 +858,12 @@ launchButton.addEventListener('mouseout', () => {
 });
 
 function checkMobileDevice() {
-  // Check if it's a mobile device
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
-  // Check if it's desktop mode on mobile
-  const isDesktopMode = window.innerWidth >= 1024 && isMobile;
-  
-  return isMobile || isDesktopMode;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+         (window.innerWidth >= 1024 && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ||
+         ('ontouchstart' in window) ||
+         (navigator.maxTouchPoints > 0) ||
+         (navigator.msMaxTouchPoints > 0) ||
+         window.innerWidth < 768; // Add explicit width check
 }
 
 // Update the mobile warning check
