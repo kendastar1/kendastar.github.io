@@ -692,7 +692,7 @@ function animateRocket(startTime) {
   const trajectoryAngle = Math.atan2(-deltaY, deltaX) * 180 / Math.PI;
   
   const distanceInPixels = position.x - 110; 
-  const distanceInMeters = Math.min(Math.round((distanceInPixels / 55) * 10) / 10, 40); // Changed max from 20 to 40
+  const distanceInMeters = Math.min(Math.round((distanceInPixels / 55) * 10) / 10, 50); // Changed max from 20 to 40
 
   distanceDisplay.textContent = `${distanceInMeters} metros`;
 
