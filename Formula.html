@@ -1,7 +1,7 @@
 <html><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bienvenidos</title>
+<title>Formulas</title>
 <link rel="stylesheet" type="text/css" href="css/style2.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -551,6 +551,29 @@ nav {
     transform: translateX(0);
   }
 }
+   .math {
+            font-size: 2em; /* Ajusta el tamaño según lo que necesites */
+            font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", serif;
+            padding-top: 15px;
+        }
+        .sup {
+            vertical-align: super;
+            font-size: 0.7em;
+        }
+         @media (max-width: 600px) {
+            .math {
+                font-size: 1.5em;
+
+            }
+
+            ul {
+                font-size: 1em; /* Ajusta el tamaño de los elementos de la lista */
+            }
+            li{
+              text-align: initial;
+            }
+
+        }
 </style>
 </head>
 <body>
@@ -565,7 +588,7 @@ nav {
       <div class="close-menu"></div>
       <a href="index.html">Inicio</a>
       <a href="Funcionamiento1.html">Funcionamiento</a>
-      <a href="#">Otro3</a>
+      <a href="Formula.html">Formula</a>
       <a href="#">Otro4</a>
       
     </div>
@@ -583,44 +606,81 @@ nav {
 <div class="construction-steps">
   <div class="step-card" onclick="updateProgress(20)">
     <svg class="step-icon" viewBox="0 0 24 24">
-      <path d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z"/>
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
     </svg>
     <div class="step-content">
-      <h3>1. Volumen del agua</h3>
-      <p>Multiplica el volumen total del cohete por el porcentaje de agua dividido entre 100.</p>
-      <img src="imagenes/f1.png" alt="arquitectos trabajando en planos, estilo corporativo moderno" class="step-image">
+      <h3>Volumen total del cohete</h3>
+
+
+<p class="math">V<sub>total</sub> = 1 m<span class="sup">3</span></p>
+<h3 style="padding-top: 20px;">Masa del cohete vacío</h3>
+<p class="math">m<sub>cohete_vacio</sub> = 0.5 kg</p>
+
+      
     </div>
   </div>
 
+<div class="sustainability-banner">
+  <h2>¡Pasos para calcular la altura y la distancia máxima!</h2>
+</div>
   <div class="step-card" onclick="updateProgress(40)">
-    <svg class="step-icon" viewBox="0 0 24 24">
-      <path d="M15,19H9V12.5C9,12.22 9.22,12 9.5,12H14.5C14.78,12 15,12.22 15,12.5V19M19,20H5V11H19V20M19,4H15V3H9V4H5C3.89,4 3,4.89 3,6V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V6C21,4.89 20.1,4 19,4Z"/>
+     <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
     </svg>
     <div class="step-content">
-      <h3>2. Cimientos</h3>
-      <p>Prepara el terreno y construye los cimientos sólidos</p>
-      <img src="https://images.unsplash.com/photo-1590644365607-1ccf5bb62877" alt="construcción de cimientos, obra en progreso" class="step-image">
+      <h3>1. Calcular el volumen del agua:</h3>
+      <p class="math">v<sub>agua</sub> = v<sub>total</sub> &times; <span style="font-size: 0.8em;">(</span><span>Porcentaje de agua</span><span style="font-size: 0.8em;"> / 100)</span></p>
+
+<p style="padding-top:30px; padding-bottom:20px;">En esta fórmula:</p>
+<ul>
+    <li><strong>v<sub>agua</sub></strong> representa el volumen de agua que se quiere calcular.</li>
+    <li><strong>v<sub>total</sub></strong> es el volumen total del cohete o recipiente.</li>
+    <li><strong>Porcentaje de agua</strong> es el porcentaje del volumen total que está ocupado por agua.</li>
+</ul>
+
+<p style="text-align: initial;">Para calcular el volumen de agua, tomamos el volumen total (<em>v<sub>total</sub></em>) y lo multiplicamos por el porcentaje de agua dividido por 100. Este cálculo convierte el porcentaje en una fracción (por ejemplo, 50% se convierte en 0.5), que luego se multiplica por el volumen total para obtener el volumen correspondiente al agua.</p>
+
+      
     </div>
   </div>
 
   <div class="step-card" onclick="updateProgress(60)">
     <svg class="step-icon" viewBox="0 0 24 24">
-      <path d="M17,19H7V5H17M17,3H7A2,2 0 0,0 5,5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V5C19,3.89 18.1,3 17,3Z"/>
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
     </svg>
     <div class="step-content">
-      <h3>3. Estructura</h3>
-      <p>Levanta las paredes y construye el esqueleto del edificio</p>
-      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd" alt="estructura de edificio en construcción, vista arquitectónica" class="step-image">
+      <h3>2. Cálculo de la masa de agua:</h3>
+      <p class="math">p = densidad del agua (1000 kg/m<sup>3</sup>)</p>
+<p class="math" >m<sub>agua</sub> = v<sub>agua</sub> &times; p</p>
+
+<p style="padding-top:30px; padding-bottom:20px;">En esta fórmula:</p>
+<ul>
+    <li><strong>m<sub>agua</sub></strong> representa la masa de agua que se quiere calcular.</li>
+    <li><strong>v<sub>agua</sub></strong> es el volumen de agua, que puede haberse calculado previamente.</li>
+    <li><strong>p</strong> es la densidad del agua, cuyo valor es de 1000 kg/m<sup>3</sup>.</li>
+</ul>
+
+<p style="text-align:initial;">Para calcular la masa de agua, se toma el volumen de agua (<em>v<sub>agua</sub></em>) y se multiplica por la densidad del agua (<em>p</em>). Dado que la densidad del agua es 1000 kg/m<sup>3</sup>, este valor convierte el volumen en masa usando la relación directa entre masa, volumen y densidad.</p>
+
     </div>
   </div>
 
   <div class="step-card" onclick="updateProgress(80)">
-    <svg class="step-icon" viewBox="0 0 24 24">
-      <path d="M12,3L2,12H5V20H19V12H22L12,3M12,7.7C14.1,7.7 15.8,9.4 15.8,11.5C15.8,13.6 14.1,15.3 12,15.3C9.9,15.3 8.2,13.6 8.2,11.5C8.2,9.4 9.9,7.7 12,7.7Z"/>
+     <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
     </svg>
     <div class="step-content">
-      <h3>4. Instalaciones</h3>
-      <p>Realiza las instalaciones eléctricas, plomería y acabados</p>
+      <h3>3. Cálculo de la masa total del cohete:</h3>
+      <p class="math">m<sub>total</sub> = m<sub>cohete_vacio</sub> + m<sub>agua</sub></p>
+<p style="padding-top:30px; padding-bottom:20px;">En esta fórmula:</p>
+<ul>
+    <li><strong>m<sub>total</sub></strong> es la masa total del cohete.</li>
+    <li><strong>m<sub>cohete_vacio</sub></strong> es la masa del cohete vacío.</li>
+    <li><strong>m<sub>agua</sub></strong> es la masa del agua dentro del cohete, que se calcula previamente.</li>
+</ul>
+
+<p style="text-align:initial;">Para calcular la masa total del cohete, simplemente sumamos la masa del cohete vacío (<em>m<sub>cohete_vacio</sub></em>) y la masa del agua (<em>m<sub>agua</sub></em>) que lleva. Este valor da la masa total del cohete con el agua incluida.</p>
+
     </div>
   </div>
 
@@ -629,18 +689,158 @@ nav {
       <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
     </svg>
     <div class="step-content">
-      <h3>5. Terminaciones</h3>
-      <p>Finaliza con los detalles y acabados finales</p>
+      <h3>4. Cálculo de la velocidad de salida:</h3>
+      <p>Cálculo de la velocidad de salida:</p>
+      <p class="math">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mi>v = </mi> 
+            <msqrt>
+                <mfrac>
+                    <mrow>
+                        <mn>2</mn>
+                        <mi>P</mi>
+                        <msub>
+                            <mi>a</mi>
+                        </msub>
+                    </mrow>
+                    <mi>p</mi>
+                </mfrac>
+            </msqrt>
+        </math>
+      </p>
+
+     <p style="padding-top:30px; padding-bottom:20px;">En esta fórmula:</p>
+      <ul>
+        <li><strong>v</strong> es la velocidad de salida.</li>
+        <li><strong>P<sub>a</sub></strong> es la presión aplicada.</li>
+        <li><strong>p</strong> es la densidad del fluido (o el medio en cuestión).</li>
+      </ul>
+
+      <p style="text-align: initial;">Para calcular la velocidad de salida, tomamos la presión aplicada, la multiplicamos por 2 y luego dividimos el resultado por la densidad del fluido. Finalmente, calculamos la raíz cuadrada de ese resultado para obtener la velocidad de salida.</p>
+
     </div>
-  </div>
+</div>
+
+</div>
+
+<div class="step-card" onclick="updateProgress(100)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>5. Componentes de la velocidad:</h3>
+      <p>Cálculo de las componentes de la velocidad:</p>
+      
+      <p class="math">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mi>v</mi><sub>x</sub> = 
+            <mi>v</mi> <mo>&#8290;</mo> <mi>&times; cos</mi><mi>&#x3B8;</mi>
+        </math>
+      </p>
+      
+      <p class="math">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mi>v</mi><sub>y</sub> = 
+            <mi>v</mi> <mo>&#8290;</mo> <mi>&times; sin</mi><mi>&#x3B8;</mi>
+        </math>
+      </p>
+
+     <p style="padding-top:30px; padding-bottom:20px;">En esta fórmula:</p>
+      <ul>
+        <li><strong>v<sub>x</sub></strong> es la componente de la velocidad en la dirección <i>x</i>.</li>
+        <li><strong>v<sub>y</sub></strong> es la componente de la velocidad en la dirección <i>y</i>.</li>
+        <li><strong>v</strong> es la velocidad total.</li>
+        <li><strong>&#x3B8;</strong> es el ángulo de lanzamiento.</li>
+      </ul>
+
+      <p style="text-align: initial;">Para calcular las componentes de la velocidad, multiplicamos la velocidad total <strong>v</strong> por el coseno o seno del ángulo de lanzamiento <strong>&#x3B8;</strong> dependiendo de la dirección.</p>
+    </div>
+</div>
+
+</div>
+<div class="step-card" onclick="updateProgress(100)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>6. Cálculo de la altura máxima:</h3>
+      <p>Cálculo de la altura máxima alcanzada por el proyectil:</p>
+
+      <p style="padding-top:10px;">Gravedad:</p>
+      <p style="padding-top:10px;"><strong>g = 9.8 m/s²</strong></p>
+
+      <p class="math" style="font-size: 30px;">
+        <!-- LaTeX dentro de MathJax para la fórmula -->
+        \( h = \frac{v_y^2}{2g} \)
+      </p>
+
+     <p style="padding-top:30px; padding-bottom:20px;">En esta fórmula:</p>
+      <ul>
+        <li><strong>h</strong> es la altura máxima alcanzada.</li>
+        <li><strong>v<sub>y</sub></strong> es la componente de la velocidad en la dirección <i>y</i>.</li>
+        <li><strong>g</strong> es la aceleración debido a la gravedad (9.8 m/s²).</li>
+      </ul>
+
+      <p style="text-align:initial;">Para calcular la altura máxima, elevamos al cuadrado la componente vertical de la velocidad \( v_y \), luego lo dividimos por el doble de la gravedad.</p>
+    </div>
+</div>
+
+</div>
+<div class="step-card" onclick="updateProgress(100)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>7. Cálculo del tiempo de vuelo:</h3>
+      <p>Cálculo del tiempo que el proyectil permanece en el aire:</p>
+
+      <p style="padding-top:10px;">Gravedad:</p>
+      <p style="padding-top:10px;"><strong>g = 9.8 m/s²</strong></p>
+
+      <p class="math" style="font-size: 30px;">
+        <!-- LaTeX dentro de MathJax para la fórmula -->
+        \( t = \frac{2v_y}{g} \)
+      </p>
+
+      <p style="padding-top:30px; padding-bottom:20px;">En esta fórmula:</p>
+      <ul>
+        <li><strong>t</strong> es el tiempo de vuelo.</li>
+        <li><strong>v<sub>y</sub></strong> es la componente de la velocidad en la dirección <i>y</i>.</li>
+        <li><strong>g</strong> es la aceleración debido a la gravedad (9.8 m/s²).</li>
+      </ul>
+
+      <p style="text-align:initial;">Para calcular el tiempo de vuelo, tomamos la componente vertical de la velocidad \( v_y \), la multiplicamos por 2 y luego dividimos entre la gravedad.</p>
+    </div>
+</div>
+<div class="step-card" onclick="updateProgress(100)">
+    <svg class="step-icon" viewBox="0 0 24 24">
+      <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+    </svg>
+    <div class="step-content">
+      <h3>8. Cálculo de la distancia horizontal:</h3>
+      <p style="padding-top:10px;">Cálculo de la distancia que recorre el proyectil en la dirección horizontal:</p>
+
+      <p>Componente horizontal de la velocidad:</p>
+      <p style="padding-top:10px;"><strong>v<sub>x</sub> = v * cos(θ)</strong></p>
+
+      <p class="math" style="font-size: 30px;">
+        <!-- LaTeX dentro de MathJax para la fórmula -->
+        \( d = v_x \cdot t \)
+      </p>
+
+     <p style="padding-top:30px; padding-bottom:20px;">En esta fórmula:</p>
+      <ul>
+        <li><strong>d</strong> es la distancia horizontal recorrida por el proyectil.</li>
+        <li><strong>v<sub>x</sub></strong> es la componente horizontal de la velocidad, \( v_x = v \cdot \cos(\theta) \).</li>
+        <li><strong>t</strong> es el tiempo de vuelo calculado previamente.</li>
+      </ul>
+
+      <p style="text-align:initial;">Para calcular la distancia horizontal, multiplicamos la componente horizontal de la velocidad \( v_x \) por el tiempo de vuelo \( t \).</p>
+    </div>
 </div>
 
 
 
-<div class="sustainability-banner">
-  <h2>¡Construye de manera sostenible!</h2>
-  <p>Implementando prácticas eco-amigables en cada paso</p>
-</div>
 
 <div class="eco-section">
   <h2>Consejos para una Construcción Verde</h2>
@@ -649,79 +849,33 @@ nav {
       <svg class="green-icon" viewBox="0 0 24 24">
         <path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"/>
       </svg>
-      <h3>Materiales Sostenibles</h3>
-      <p>Utiliza materiales reciclados y certificados ambientalmente</p>
+      <h3>Conoce la densidad del agua</h3>
+      <p>La densidad del agua es una constante en condiciones normales, que es 1000 kg/m³. Esto significa que 1 metro cúbico de agua tiene una masa de 1000 kilogramos. Esta densidad se utiliza para calcular la masa de agua a partir del volumen.</p>
     </div>
     
     <div class="eco-tip">
-      <svg class="green-icon" viewBox="0 0 24 24">
-        <path d="M12,2L1,21H23M12,6L19.53,19H4.47M11,10V14H13V10M11,16V18H13V16"/>
-      </svg>
-      <h3>Energía Solar</h3>
-      <p>Implementa paneles solares y sistemas de energía renovable</p>
+     <svg class="green-icon" viewBox="0 0 24 24">
+  <path d="M6 2C4.89 2 4 2.89 4 4V18C4 19.11 4.89 20 6 20H18C19.11 20 20 19.11 20 18V4C20 2.89 19.11 2 18 2H6M6 18V4H18V18H6Z"/>
+</svg>
+
+      <h3>Volumen de agua proporcional al porcentaje</h3>
+      <p>Si sabes el volumen total del cohete y el porcentaje de agua, puedes calcular el volumen de agua multiplicando el volumen total por ese porcentaje y dividiéndolo entre 100.</p>
     </div>
     
     <div class="eco-tip">
-      <svg class="green-icon" viewBox="0 0 24 24">
-        <path d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z"/>
-      </svg>
-      <h3>Gestión del Agua</h3>
-      <p>Sistemas de recolección y reutilización de agua lluvia</p>
+    <svg class="green-icon" viewBox="0 0 24 24">
+  <path d="M14.06,9.94L4,19L5,20L15.06,10.06L13.94,9L14.06,9.94M2,21H5L17.59,8.41L15.17,6L2,19.17V21Z"/>
+</svg>
+
+
+      <h3>Masa de agua directamente proporcional al volumen</h3>
+      <p>Una vez que tienes el volumen de agua, multiplicas ese volumen por la densidad del agua para obtener la masa de agua. Cuanto más volumen de agua, mayor será la masa.</p>
     </div>
   </div>
 </div>
 
-<div class="testimonials">
-  <h2 style="text-align: center; margin-bottom: 3rem;">Lo Que Dicen Nuestros Clientes</h2>
-  <div class="testimonial-grid">
-    <div class="testimonial-card">
-      <div class="testimonial-header">
-        <div class="testimonial-avatar">M</div>
-        <div>
-          <h4>María González</h4>
-          <p>Propietaria</p>
-        </div>
-      </div>
-      <p>"El proceso de construcción fue muy claro y organizado. Los resultados superaron nuestras expectativas."</p>
-    </div>
-    <div class="testimonial-card">
-      <div class="testimonial-header">
-        <div class="testimonial-avatar">J</div>
-        <div>
-          <h4>Juan Pérez</h4>
-          <p>Desarrollador</p>
-        </div>
-      </div>
-      <p>"La guía interactiva nos ayudó a mantener el proyecto en tiempo y dentro del presupuesto."</p>
-    </div>
-    <div class="testimonial-card">
-      <div class="testimonial-header">
-        <div class="testimonial-avatar">A</div>
-        <div>
-          <h4>Ana Martínez</h4>
-          <p>Arquitecta</p>
-        </div>
-      </div>
-      <p>"Una herramienta invaluable para la planificación y ejecución de proyectos de construcción."</p>
-    </div>
-  </div>
-</div>
 
-<div class="contact-form">
-  <h2 style="text-align: center; margin-bottom: 2rem;">¿Listo para Empezar tu Proyecto?</h2>
-  <form id="consultationForm" onsubmit="event.preventDefault(); submitForm();">
-    <div class="form-group">
-      <input type="text" placeholder="Nombre" required>
-    </div>
-    <div class="form-group">
-      <input type="email" placeholder="Correo Electrónico" required>
-    </div>
-    <div class="form-group">
-      <textarea placeholder="Describe tu proyecto" rows="4" required></textarea>
-    </div>
-    <button type="submit" class="submit-btn">Solicitar Consulta</button>
-  </form>
-</div>
+
 
 <script>
 let currentProgress = 0;
@@ -808,5 +962,8 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.animationPlayState = 'paused';
       observer.observe(el);
     });
+  </script>
+   <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
 </body></html>

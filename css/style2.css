@@ -10,11 +10,10 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background: #ffffff; /* Changed from gradient to white */
-  color: var(--dark);
 }
 
 .header {
- background: linear-gradient(45deg, #005524, #09fa6f);
+  background: linear-gradient(45deg, #005524, #09fa6f);
   color: white;
   padding: 3rem;
   text-align: center;
