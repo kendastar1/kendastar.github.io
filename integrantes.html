@@ -1,6 +1,9 @@
 <html><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/style3.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <title>Bienvenidos</title>
 <style>
 :root {
@@ -525,6 +528,10 @@ nav {
     padding: 1.2rem 1.5rem;
     font-size: 0.9rem;
   }
+  .hero-section {
+    align-items: flex-end;
+
+  }
 }
 
 @keyframes fadeInUp {
@@ -560,108 +567,105 @@ nav {
     </div>
     <div class="nav-links">
       <div class="close-menu"></div>
-      <a href="index.html">Inicio</a>
+     <a href="index.html">Inicio</a>
       <a href="Funcionamiento1.html">Funcionamiento</a>
       <a href="Formula.html">Formula</a>
       <a href="integrantes.html">Integrantes</a>
       
     </div>
   </nav>
-
-  <section class="hero">
-    <h1>Cohete de agua a presion</h1>
-    <h2>BIENVENIDOS</h2>
-    <p>Podrías explorar todo acerca de esta simulación</p>
-    <div class="hero-buttons">
-      <button class="btn btn-primary">Ver más</button>
-      <button class="btn btn-secondary">Simulación</button>
-    </div>
-  </section>
-
-  <section class="features">
-    <div class="feature-card">
-      <a href="Funcionamiento1.html" style="text-decoration: none;">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <!-- Main rocket body -->
-        <path d="M12 2C11 3 8.5 5.5 8.5 9.5C8.5 11.8 9.44 13.77 10.5 15C11.2 13.3 12.8 12 12 12C11.2 12 12.8 13.3 13.5 15C14.56 13.77 15.5 11.8 15.5 9.5C15.5 5.5 13 3 12 2Z"/>
-        <!-- Rocket window -->
-        <circle cx="12" cy="8" r="1.5"/>
-        <!-- Side boosters -->
-        <path d="M15.5 10L17 14L16 15.5L12 14L8 15.5L7 14L8.5 10"/>
-        <!-- Flames -->
-        <path d="M10.5 15.5L12 19L13.5 15.5" fill="var(--primary-green)">
-          <animate attributeName="d" 
-                   dur="0.5s"
-                   repeatCount="indefinite"
-                   values="M10.5 15.5L12 19L13.5 15.5;
-                           M10.5 15.5L12 20L13.5 15.5;
-                           M10.5 15.5L12 19L13.5 15.5"/>
-        </path>
-      </svg>
-      <h3 class="feature-title">Como funciona</h3>
-      <p class="feature-subtitle">El funcionamiento</p>
-       </a>
-    </div>
-
-    <div class="feature-card">
-      <a href="https://youtu.be/sPEYAeIEzrM?si=4YUv9UDVlztYrU80" style="text-decoration: none;">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"/>
-      </svg>
-      <h3 class="feature-title">Pasos para la construccion</h3>
-      <p class="feature-subtitle">En este video podrás ver la construcción</p>
-      </a>
-    </div>
-
-    <div class="feature-card">
-      <a href="Formula.html" style="text-decoration: none;">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M3,4H21V8H3V4M3,10H21V14H3V10M3,16H21V20H3V16Z"/>
-      </svg>
-      <h3 class="feature-title">Formulas</h3>
-      <p class="feature-subtitle">Formulas para calcular</p>
-    </a>
-    </div>
-
-    <div class="feature-card">
-      <a href="simulador.html" style="text-decoration: none;">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-        <path d="M3,12H7A5,5 0 0,1 12,7A5,5 0 0,1 17,12H21A1,1 0 0,1 22,13A1,1 0 0,1 21,14H3A1,1 0 0,1 2,13A1,1 0 0,1 3,12M15,12A3,3 0 0,0 12,9A3,3 0 0,0 9,12H15M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M3.34,7L7.5,6.65C6.9,7.16 6.36,7.78 5.94,8.5C5.5,9.24 5.25,10 5.11,10.79L3.34,7M20.65,7L18.88,10.79C18.74,10 18.47,9.23 18.05,8.5C17.63,7.78 17.1,7.15 16.5,6.64L20.65,7M12.71,20.71L15.82,17.6C16.21,17.21 16.21,16.57 15.82,16.18C15.43,15.79 14.8,15.79 14.41,16.18L12,18.59L9.59,16.18C9.2,15.79 8.57,15.79 8.18,16.18C7.79,16.57 7.79,17.21 8.18,17.6L11.29,20.71C11.68,21.1 12.32,21.1 12.71,20.71Z"/>
-      </svg>
-      <h3 class="feature-title" >Simulador</h3>
-      <p class="feature-subtitle">Podras ver el simulador</p>
-      </a>
-    </div>
-
-    <div class="feature-card">
-       <a href="integrantes.html" style="text-decoration: none;">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="var(--primary-green)">
-    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-10 1.67-10 5v2h20v-2c0-3.33-6.69-5-10-5z"/>
-</svg>
-      <h3 class="feature-title">Integrantes</h3>
-      <p class="feature-subtitle">Integrantes encargados en realizar el simulador</p>
-    </div>
-  </a>
-  </section>
-
-  <section class="about-section">
-    <div class="about-content">
-      <div class="about-text">
-        <h2>Concepto Básico</h2>
-        <h3>Cohete Propulsado por Aire y Agua
-</h3>
-        <p>Un cohete propulsado por aire y agua utiliza la presión del aire comprimido para expulsar agua y generar impulso. Al liberar el tapón, el aire empuja el agua hacia abajo, lo que eleva el cohete hacia arriba.</p>
-        <div class="about-stats">
-        
-         
+ <div class="hero-section">
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
         </div>
-        <button class="about-button">Ver más</button>
-      </div>
-      <div class="about-image">
-        <img src="imagenes/img2.jpg" alt="Nature conservation image" width="500" height="400">
-      </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Nuestros Participantes Destacados</h1>
+            <p class="hero-subtitle">Conoce a los profesionales que están transformando nuestra empresa</p>
+        </div>
     </div>
-  </section>
+    
+    <h2 class="university-title">Universidad Simón Bolívar</h2>
+    
+    <div class="participants-container">
+        <div class="participant-card" style="animation-delay: 0.1s;">
+            <img class="participant-image" 
+                 alt="Ejecutiva profesional en traje negro, fotografía corporativa elegante" 
+                 src="imagenes/user.jpg"
+                 width="250" 
+                 height="250">
+            <div class="participant-info">
+                <h2 class="participant-name">Kevin Ortiz</h2>
+                <div class="participant-role">Estudiante</div>
+                <p class="participant-description">Descripción</p>
+            </div>
+        </div>
+
+        <div class="participant-card" style="animation-delay: 0.2s;">
+            <img class="participant-image" 
+                 alt="Empresario en traje azul marino, pose profesional" 
+                src="imagenes/user.jpg"
+                 width="250" 
+                 height="250">
+            <div class="participant-info">
+                <h2 class="participant-name">Andres Jaimes</h2>
+                <div class="participant-role">Estudiante</div>
+                 <p class="participant-description">Descripción</p>
+            </div>
+        </div>
+
+        <div class="participant-card" style="animation-delay: 0.3s;">
+            <img class="participant-image" 
+                 alt="Profesional creativa en outfit moderno, ambiente corporativo" 
+                 src="imagenes/user.jpg"
+                 width="250" 
+                 height="250">
+            <div class="participant-info">
+                <h2 class="participant-name">Jeferson Lazaro</h2>
+                <div class="participant-role">Estudiante</div>
+                <p class="participant-description">Descripción</p>
+            </div>
+        </div>
+
+        <div class="participant-card" style="animation-delay: 0.4s;">
+            <img class="participant-image" 
+                 alt="Ejecutivo tecnológico en ambiente moderno" 
+                src="imagenes/user.jpg"
+                 width="250" 
+                 height="250">
+            <div class="participant-info">
+                <h2 class="participant-name">Ronald Acevedo</h2>
+                <div class="participant-role">Estudiante</div>
+                 <p class="participant-description">Descripción</p>
+            </div>
+        </div>
+
+        <div class="participant-card" style="animation-delay: 0.5s;">
+            <img class="participant-image" 
+                 alt="Profesional de finanzas en traje elegante" 
+                src="imagenes/user.jpg"
+                 width="250" 
+                 height="250">
+            <div class="participant-info">
+                <h2 class="participant-name">Felipe Hernandez</h2>
+                <div class="participant-role">Estudiante</div>
+                 <p class="participant-description">Descripción</p>
+            </div>
+        </div>
+
+        <div class="participant-card" style="animation-delay: 0.6s;">
+            <img class="participant-image" 
+                 alt="Líder de marketing en ambiente corporativo moderno" 
+                src="imagenes/user.jpg"
+                 width="250" 
+                 height="250">
+            <div class="participant-info">
+                <h2 class="participant-name">Lina Marcela</h2>
+                <div class="participant-role">Directora</div>
+                <p class="participant-description">Descripción</p>
+        </div>
+    </div>
 
   <script>
     const hamburger = document.querySelector('.hamburger');
