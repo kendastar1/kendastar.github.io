@@ -1,6 +1,6 @@
 <html><head><base href="/" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-<title>Simulador de Cohete de Agua</title>
+<title>Simulador de Cohete de Agua - Control con Click</title>
 <style>
   body {
     margin: 0;
@@ -104,6 +104,11 @@
     display: block;
     margin-bottom: 5px;
     color: #333;
+  }
+  .slider-container .note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
   }
   input[type="range"] {
     width: 100%;
@@ -405,7 +410,7 @@
   <button class="close-button">&times;</button>
   ⚠️ ¡PRECAUCIÓN! La botella ha explotado debido a la excesiva presión. 
   <br><br>
-  Cuando la presión supera los 500,000 Pa, el riesgo de ruptura es muy alto.
+  Cuando la presión supera los 500 kPa, el riesgo de ruptura es muy alto.
 </div>
 <div class="container">
   <div class="distance-panel">
@@ -527,13 +532,14 @@
     <p style="color: #666;">📌 Haz clic y arrastra la botella para ajustar el ángulo</p>
     
     <div class="slider-container">
-      <label>Presión del Aire: <span id="pressureValue">200000</span> Pa</label>
-      <input type="range" min="100000" max="550000" step="10000" value="200000" id="pressureSlider">
+      <label>Presión del Aire: <span id="pressureValue">200</span> kPa</label>
+      <input type="range" min="100" max="550" step="10" value="200" id="pressureSlider">
+      <div class="note">Nota: 1 kPa = 1.000 Pa (Pascal)</div>
     </div>
     
     <div class="slider-container">
-      <label>Cantidad de Agua: <span id="waterValue">50</span>%</label>
-      <input type="range" min="0" max="100" value="50" id="waterSlider">
+      <label>Cantidad de Agua: <span id="waterValue">25</span>%</label>
+      <input type="range" min="0" max="50" value="25" id="waterSlider">
     </div>
     
     <button id="launchButton">
@@ -583,7 +589,7 @@ function createDistanceMarkers() {
     const startX = 110; 
     const metersToPixels = 55; // Slightly reduced this to bring markers closer together
 
-    const maxMeters = 40; // Changed from 20 to 40 meters
+    const maxMeters = 50; // Changed from 40 to 50 meters
     const stepMeters = 10; 
     
         for(let meters = 0; meters <= maxMeters; meters += stepMeters) { 
@@ -608,6 +614,7 @@ function calculateAngle(event) {
     y: rocketRect.bottom
   };
   
+  // Get the actual position relative to the viewport
   const deltaX = event.clientX - rocketBottomCenter.x;
   const deltaY = rocketBottomCenter.y - event.clientY;
   let angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
@@ -624,7 +631,8 @@ function updateRocketAngle(angle) {
 }
 
 function updateWaterLevel(percentage) {
-  const height = 40 * (percentage / 100);
+  const scaledPercentage = percentage * 2;
+  const height = 40 * (scaledPercentage / 100);
   waterLevel.setAttribute('height', height);
   waterLevel.setAttribute('y', 120 - height);
   document.getElementById('waterValue').textContent = percentage;
@@ -638,7 +646,8 @@ function updatePressure(pressure) {
 
 function calculateTrajectoryPoint(time, angle, pressure, waterAmount) {
     const gravity = 9.81;
-    let initialVelocity = Math.sqrt(pressure / 100000) * (0.5 + waterAmount / 200) * 120; 
+    const scaledWaterAmount = waterAmount * 2;
+    let initialVelocity = Math.sqrt(pressure * 1000 / 100000) * (0.5 + scaledWaterAmount / 200) * 120; 
   
   if (angle === 90 && pressure <= 1 && waterAmount <= 1) {
     const x = 110;
@@ -692,7 +701,7 @@ function animateRocket(startTime) {
   const trajectoryAngle = Math.atan2(-deltaY, deltaX) * 180 / Math.PI;
   
   const distanceInPixels = position.x - 110; 
-  const distanceInMeters = Math.min(Math.round((distanceInPixels / 55) * 10) / 10, 50); // Changed max from 20 to 40
+  const distanceInMeters = Math.min(Math.round((distanceInPixels / 55) * 10) / 10, 50); // Changed max from 40 to 50
 
   distanceDisplay.textContent = `${distanceInMeters} metros`;
 
@@ -727,9 +736,13 @@ function launchRocket() {
   if (isLaunched) return;
   
   const pressure = parseInt(pressureSlider.value);
-  if (pressure > 500000 && Math.random() < 0.7) {
+  if (pressure > 500 && Math.random() < 0.7) {
     const explosion = document.querySelector('.explosion');
     const message = document.querySelector('.explosion-message');
+    
+    launchButton.disabled = true;
+    isAdjusting = false;
+    rocket.classList.remove('adjusting');
     
     explosion.style.display = 'block';
     message.style.display = 'block';
@@ -739,12 +752,10 @@ function launchRocket() {
     
     rocket.style.display = 'none';
     
-    // Auto-dismiss after 7 seconds
     setTimeout(() => {
       hideExplosionMessage();
     }, 7000);
     
-    // Add event listener for close button
     document.querySelector('.close-button').addEventListener('click', hideExplosionMessage);
     
     return;
@@ -784,10 +795,48 @@ function hideExplosionMessage() {
   message.style.display = 'none';
   explosion.style.animation = '';
   rocket.style.display = 'block';
+  
+  launchButton.disabled = false;
 }
+
+function checkMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+         window.innerWidth < 768 || 
+         ('ontouchstart' in window) || 
+         (navigator.maxTouchPoints > 0) || 
+         (navigator.msMaxTouchPoints > 0);
+}
+
+function showMobileWarning() {
+  const warning = document.querySelector('.mobile-warning');
+  if (checkMobileDevice()) {
+    warning.style.display = 'flex';
+  } else {
+    warning.style.display = 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', showMobileWarning);
+window.addEventListener('resize', showMobileWarning);
+window.addEventListener('orientationchange', showMobileWarning);
+
+// Initial check
+showMobileWarning();
+
+updateRocketAngle(45);
+updateWaterLevel(25);
+updatePressure(200);
+updateTrajectoryPreview();
+createDistanceMarkers();
+
+window.addEventListener('resize', createDistanceMarkers);
 
 simulationArea.addEventListener('mousedown', (e) => {
   if (e.target.closest('.control-panel') || e.target.closest('.distance-panel')) {
+    return;
+  }
+  
+  if (document.querySelector('.explosion-message').style.display === 'block') {
     return;
   }
   
@@ -828,37 +877,5 @@ launchButton.addEventListener('mouseover', () => {
 launchButton.addEventListener('mouseout', () => {
   launchButton.style.background = '#2196F3';
 });
-
-function checkMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-         window.innerWidth < 768 || 
-         ('ontouchstart' in window) || 
-         (navigator.maxTouchPoints > 0) || 
-         (navigator.msMaxTouchPoints > 0);
-}
-
-function showMobileWarning() {
-  const warning = document.querySelector('.mobile-warning');
-  if (checkMobileDevice()) {
-    warning.style.display = 'flex';
-  } else {
-    warning.style.display = 'none';
-  }
-}
-
-document.addEventListener('DOMContentLoaded', showMobileWarning);
-window.addEventListener('resize', showMobileWarning);
-window.addEventListener('orientationchange', showMobileWarning);
-
-// Initial check
-showMobileWarning();
-
-updateRocketAngle(45);
-updateWaterLevel(50);
-updatePressure(200000);
-updateTrajectoryPreview();
-createDistanceMarkers();
-
-window.addEventListener('resize', createDistanceMarkers);
 </script>
 </body></html>
