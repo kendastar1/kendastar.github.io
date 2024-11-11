@@ -1,10 +1,8 @@
 <html><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="css/style3.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-<title>Integrantes</title>
+<title>Construcción</title>
+<link rel="stylesheet" type="text/css" href="css/style4.css">
 <style>
 :root {
   --primary-green: #4CAF50;
@@ -100,66 +98,7 @@ nav {
   color: #90EE90;
 }
 
-.hero {
 
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-  color: var(--white);
-  background-image: url(imagenes/img.jpg);
-}
-.hero::before {
-  content: ''; /* Necesario para mostrar el pseudo-elemento */
-  position: absolute; /* Posiciona el pseudo-elemento sobre el contenedor */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Color negro con opacidad del 50% */
- 
-}
-
-.hero h1 {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  opacity: 0;
-  animation: fadeInUp 1s ease forwards;
-
-}
-
-.hero h2 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: var(--primary-green);
-  animation-delay: 0.3s;
-  opacity: 0;
-  animation: fadeInUp 1s ease forwards;
-}
-
-.hero p {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  letter-spacing: 1px;
-  animation-delay: 0.6s;
-  opacity: 0;
-  animation: fadeInUp 1s ease forwards;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1.5rem;
-  opacity: 0;
-  animation: fadeInUp 1s ease forwards;
-  animation-delay: 0.9s;
-}
 
 .btn {
   padding: 1.2rem 2.5rem;
@@ -528,10 +467,6 @@ nav {
     padding: 1.2rem 1.5rem;
     font-size: 0.9rem;
   }
-  .hero-section {
-    align-items: flex-end;
-
-  }
 }
 
 @keyframes fadeInUp {
@@ -555,6 +490,7 @@ nav {
     transform: translateX(0);
   }
 }
+
 </style>
 </head>
 <body>
@@ -567,7 +503,7 @@ nav {
     </div>
     <div class="nav-links">
       <div class="close-menu"></div>
-   <a href="index.html">Inicio</a>
+    <a href="index.html">Inicio</a>
       <a href="construccion.html">Construcción</a>
       <a href="Funcionamiento1.html">Funcionamiento</a>
       <a href="Formula.html">Formula</a>
@@ -576,98 +512,200 @@ nav {
       
     </div>
   </nav>
- <div class="hero-section">
-        <div class="hero-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-title">Nuestros Participantes Destacados</h1>
-            <p class="hero-subtitle">Conoce a los profesionales que están transformando nuestra empresa</p>
-        </div>
+  <div class="page-transition"></div>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>Cohete de Agua a Presión</h1>
+    <p>Una guía completa para construir tu propio cohete propulsado por agua</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="section">
+    <h2>Materiales Necesarios</h2>
+    <div class="materials-list">
+      <div class="material-card">
+        <h3>Básicos</h3>
+        <ul>
+          <li>Botella de plástico (1.5 a 2 litros) opcional</li>
+          <li>Tapón de corcho o goma</li>
+          <li>Válvula de neumático de bicicleta (opcional)</li>
+          <li>Bomba de aire</li>
+        </ul>
+      </div>
+      <div class="material-card">
+        <h3>Estructura</h3>
+        <ul>
+          <li>Cartón</li>
+          <li>Cinta adhesiva resistente</li>
+          <li>Tijeras</li>
+          <li>Pegamento resistente al agua</li>
+        </ul>
+      </div>
+      <div class="material-card">
+        <h3>Opcionales</h3>
+        <ul>
+          <li>Pintura en aerosol</li>
+          <li>Decoraciones</li>
+          <li>Base de lanzamiento</li>
+        </ul>
+      </div>
     </div>
-    
-    <h2 class="university-title">Universidad Simón Bolívar</h2>
-    
-    <div class="participants-container">
-        <div class="participant-card" style="animation-delay: 0.1s;">
-            <img class="participant-image" 
-                 alt="Ejecutiva profesional en traje negro, fotografía corporativa elegante" 
-                 src="imagenes/user.jpg"
-                 width="250" 
-                 height="250">
-            <div class="participant-info">
-                <h2 class="participant-name">Kevin Ortiz</h2>
-                <div class="participant-role">Estudiante</div>
-                <p class="participant-description">Descripción</p>
-            </div>
-        </div>
+  </div>
 
-        <div class="participant-card" style="animation-delay: 0.2s;">
-            <img class="participant-image" 
-                 alt="Empresario en traje azul marino, pose profesional" 
-                src="imagenes/user.jpg"
-                 width="250" 
-                 height="250">
-            <div class="participant-info">
-                <h2 class="participant-name">Andres Jaimes</h2>
-                <div class="participant-role">Estudiante</div>
-                 <p class="participant-description">Descripción</p>
-            </div>
+  <div class="section">
+    <h2>Instrucciones de Construcción</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-content">
+          <h3>Preparación de la Botella</h3>
+          <p>Limpiar y secar completamente la botella. Asegurarse de que no tenga daños ni grietas. La botella será el cuerpo principal del cohete.</p>
         </div>
+        <div class="step-image">
+          <img alt="Botella de plástico limpia de 2 litros siendo inspeccionada para construcción de cohete, fotografía instructiva" src="imagenes/botellon.jpg" width="800" height="200">
+        </div>
+      </div>
 
-        <div class="participant-card" style="animation-delay: 0.3s;">
-            <img class="participant-image" 
-                 alt="Profesional creativa en outfit moderno, ambiente corporativo" 
-                 src="imagenes/user.jpg"
-                 width="250" 
-                 height="250">
-            <div class="participant-info">
-                <h2 class="participant-name">Jeferson Lazaro</h2>
-                <div class="participant-role">Estudiante</div>
-                <p class="participant-description">Descripción</p>
-            </div>
+      <div class="step">
+        <div class="step-content">
+          <h3>Sistema de Propulsión</h3>
+          <p>Hacer un agujero en el centro del tapón del tamaño de la válvula de la bicicleta. Insertar la válvula y sellar bien con pegamento resistente al agua.</p>
         </div>
+        <div class="step-image">
+          <img alt="Válvula de bicicleta siendo insertada en tapón de corcho, primer plano detallado" src="imagenes/tapa.jpg" width="800" height="200">
+        </div>
+      </div>
 
-        <div class="participant-card" style="animation-delay: 0.4s;">
-            <img class="participant-image" 
-                 alt="Ejecutivo tecnológico en ambiente moderno" 
-                src="imagenes/user.jpg"
-                 width="250" 
-                 height="250">
-            <div class="participant-info">
-                <h2 class="participant-name">Ronald Acevedo</h2>
-                <div class="participant-role">Estudiante</div>
-                 <p class="participant-description">Descripción</p>
-            </div>
+      <div class="step">
+        <div class="step-content">
+          <h3>Aletas Estabilizadoras</h3>
+          <p>Cortar tres o cuatro aletas triangulares del cartón corrugado. Las dimensiones recomendadas son 15cm de base y 10cm de altura. Pegarlas equidistantes alrededor de la base de la botella.</p>
         </div>
+        <div class="step-image">
+          <img alt="Aletas de cartón triangulares siendo pegadas a la botella, vista de proceso de construcción" src="imagenes/carton.jpg" width="800" height="200">
+        </div>
+      </div>
 
-        <div class="participant-card" style="animation-delay: 0.5s;">
-            <img class="participant-image" 
-                 alt="Profesional de finanzas en traje elegante" 
-                src="imagenes/user.jpg"
-                 width="250" 
-                 height="250">
-            <div class="participant-info">
-                <h2 class="participant-name">Felipe Hernandez</h2>
-                <div class="participant-role">Estudiante</div>
-                 <p class="participant-description">Descripción</p>
-            </div>
+      <div class="step">
+        <div class="step-content">
+          <h3>Punta del Cohete</h3>
+          <p>Crear un cono con cartón para la punta del cohete. Debe encajar perfectamente en la parte superior de la botella. Sellar con cinta adhesiva resistente.</p>
         </div>
+        <div class="step-image">
+          <img alt="Cono de cartón siendo ajustado en la parte superior de la botella, fotografía del proceso" src="imagenes/cono.jpg" width="800" height="200">
+        </div>
+      </div>
 
-        <div class="participant-card" style="animation-delay: 0.6s;">
-            <img class="participant-image" 
-                 alt="Líder de marketing en ambiente corporativo moderno" 
-                src="imagenes/user.jpg"
-                 width="250" 
-                 height="250">
-            <div class="participant-info">
-                <h2 class="participant-name">Lina Marcela</h2>
-                <div class="participant-role">Directora</div>
-                <p class="participant-description">Descripción</p>
+      <div class="step">
+        <div class="step-content">
+          <h3>Ensamblaje Final</h3>
+          <p>Asegurar todas las piezas con cinta adhesiva resistente. Verificar que no haya fugas en ninguna unión. Opcionalmente, pintar y decorar el cohete.</p>
         </div>
+        <div class="step-image">
+          <img alt="Cohete de agua completamente ensamblado y decorado, fotografía del producto final" src="imagenes/botella.jpg" width="800" height="200">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-content">
+          <h3>Lanzamiento</h3>
+          <p>Conecta la bomba de aire a la válvula de la bicicleta o del auto. Asegúrate de que todo esté bien ajustado y añade la cantidad adecuada de agua para el lanzamiento.</p>
+        </div>
+        <div class="step-image">
+          <img alt="Cono de cartón siendo ajustado en la parte superior de la botella, fotografía del proceso" src="imagenes/bomba.jpg" width="800" height="200">
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="section safety-section">
+    <div class="circle-container"></div>
+    <h2>Consejos de Seguridad</h2>
+    <div class="safety-timeline">
+      <div class="safety-item">
+        <div class="safety-content">
+          <h3>Área de Lanzamiento</h3>
+          <p>Siempre lanzar en áreas abiertas y despejadas</p>
+        </div>
+      </div>
+      
+      <div class="safety-item">
+        <div class="safety-content">
+          <h3>Distancia</h3>
+          <p>Mantener una distancia segura durante el lanzamiento</p>
+        </div>
+      </div>
+      
+      <div class="safety-item">
+        <div class="safety-content">
+          <h3>Presión</h3>
+          <p>No exceder los 500 kpa de presión</p>
+        </div>
+      </div>
+      
+      <div class="safety-item">
+        <div class="safety-content">
+          <h3>Protección</h3>
+          <p>Usar protección ocular</p>
+        </div>
+      </div>
+      
+      <div class="safety-item">
+        <div class="safety-content">
+          <h3>Dirección</h3>
+          <p>No apuntar el cohete hacia personas o animales</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    document.body.style.overflow = 'auto';
+  }, 1500);
+
+  const container = document.createElement('div');
+  container.className = 'circle-container';
+  document.querySelector('.safety-section').prepend(container);
+
+  // Create more circles initially
+  for (let i = 0; i < 20; i++) {
+    createCircle(container);
+  }
+
+  // Create new circles more frequently
+  setInterval(() => createCircle(container), 1000);
+});
+
+function createCircle(container) {
+  const circle = document.createElement('div');
+  circle.className = 'circle';
+  
+  // Random size between 20 and 80px
+  const size = Math.random() * 60 + 20;
+  circle.style.width = `${size}px`;
+  circle.style.height = `${size}px`;
+  
+  // Random position along the bottom
+  circle.style.left = `${Math.random() * 100}%`;
+  circle.style.bottom = '-100px';
+  
+  // Add random delay
+  circle.style.animationDelay = `${Math.random() * 5}s`;
+  
+  container.appendChild(circle);
+  
+  // Remove circle after animation completes
+  circle.addEventListener('animationend', () => {
+    circle.remove();
+  });
+}
+</script>
+
+  
 
   <script>
     const hamburger = document.querySelector('.hamburger');
