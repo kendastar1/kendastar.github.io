@@ -548,6 +548,16 @@ nav {
     transform: translateX(0);
   }
 }
+ .content-slide {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .content-slide.active {
+    display: block;
+    opacity: 1;
+  }
 </style>
 </head>
 <body>
@@ -576,10 +586,11 @@ nav {
     <h1>Cohete de agua a presion</h1>
     <h2>BIENVENIDOS</h2>
     <p>Podrías explorar todo acerca de esta simulación</p>
+   <!-- 
     <div class="hero-buttons">
       <button class="btn btn-primary">Ver más</button>
       <button class="btn btn-secondary">Simulación</button>
-    </div>
+    </div>-->
   </section>
 
   <section class="features">
@@ -651,21 +662,23 @@ nav {
 
   <section class="about-section">
     <div class="about-content">
-      <div class="about-text">
-        <h2>Concepto Básico</h2>
-        <h3>Cohete Propulsado por Aire y Agua
-</h3>
-        <p>Un cohete propulsado por aire y agua utiliza la presión del aire comprimido para expulsar agua y generar impulso. Al liberar el tapón, el aire empuja el agua hacia abajo, lo que eleva el cohete hacia arriba.</p>
-        <div class="about-stats">
-        
-         
-        </div>
-        <button class="about-button">Ver más</button>
-      </div>
-      <div class="about-image">
-        <img src="imagenes/img2.jpg" alt="Nature conservation image" width="500" height="400">
-      </div>
+  <div class="about-text">
+    <h2>Concepto Básico</h2>
+    <div class="content-slide active" id="slide-1">
+      <h3>Cohete Propulsado por Aire y Agua</h3>
+      <p>Un cohete propulsado por aire y agua utiliza la presión del aire comprimido para expulsar agua y generar impulso. Al liberar el tapón, el aire empuja el agua hacia abajo, lo que eleva el cohete hacia arriba.</p>
     </div>
+    <div class="content-slide" id="slide-2">
+      <h3>Funcionamiento del Cohete</h3>
+      <p>El cohete se eleva debido a la tercera ley de Newton, donde cada acción tiene una reacción igual y opuesta. La presión del aire genera fuerza en sentido contrario al agua expulsada.</p>
+    </div>
+    <button class="about-button" onclick="prevSlide()">Atrás</button>
+    <button class="about-button" onclick="nextSlide()">Siguiente</button>
+  </div>
+  <div class="about-image">
+    <img src="imagenes/img2.jpg" alt="Nature conservation image" width="500" height="400">
+  </div>
+</div>
   </section>
 
   <script>
@@ -729,4 +742,23 @@ nav {
       observer.observe(el);
     });
   </script>
+  <script>
+  let currentSlide = 1;
+
+  function showSlide(slideNumber) {
+    const slides = document.querySelectorAll('.content-slide');
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[slideNumber - 1].classList.add('active');
+  }
+
+  function nextSlide() {
+    currentSlide = currentSlide === 2 ? 1 : currentSlide + 1;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = currentSlide === 1 ? 2 : currentSlide - 1;
+    showSlide(currentSlide);
+  }
+</script>
 </body></html>
